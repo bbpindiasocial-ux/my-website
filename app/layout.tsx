@@ -1,26 +1,23 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, DM_Sans } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-geist-sans',
-})
-
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-geist-sans',
   weight: ['400', '500', '600', '700', '800', '900'],
 })
 
 export const metadata: Metadata = {
   title: 'Keerthi Nirmal - Cultivated With Care',
-  description: 'Premium quality grains and seeds cultivated with care. Keerthi Nirmal brings you the finest natural produce.',
+  description:
+    'Premium quality rice cultivated with care. Keerthi Nirmal brings you the finest natural grains from the heart of Kerala.',
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f5f2e8',
+  themeColor: '#e8e2d0',
 }
 
 export default function RootLayout({
@@ -30,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${dmSans.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${dmSans.variable} font-sans antialiased`}>{children}</body>
     </html>
   )
 }

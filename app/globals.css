@@ -10,25 +10,25 @@
 
 @layer base {
   :root {
-    --background: 55 47% 95%;
-    --foreground: 150 10% 15%;
-    --card: 55 47% 95%;
-    --card-foreground: 150 10% 15%;
-    --popover: 55 47% 95%;
-    --popover-foreground: 150 10% 15%;
-    --primary: 160 63% 48%;
-    --primary-foreground: 55 47% 95%;
-    --secondary: 68 100% 60%;
-    --secondary-foreground: 150 10% 15%;
-    --muted: 55 30% 90%;
+    --background: 43 33% 93%;
+    --foreground: 150 10% 12%;
+    --card: 43 33% 93%;
+    --card-foreground: 150 10% 12%;
+    --popover: 43 33% 93%;
+    --popover-foreground: 150 10% 12%;
+    --primary: 152 56% 28%;
+    --primary-foreground: 43 33% 95%;
+    --secondary: 72 85% 55%;
+    --secondary-foreground: 150 10% 12%;
+    --muted: 43 20% 88%;
     --muted-foreground: 150 10% 40%;
-    --accent: 68 100% 60%;
-    --accent-foreground: 150 10% 15%;
+    --accent: 72 85% 55%;
+    --accent-foreground: 150 10% 12%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 55 20% 85%;
-    --input: 55 20% 85%;
-    --ring: 160 63% 48%;
+    --border: 43 15% 82%;
+    --input: 43 15% 82%;
+    --ring: 152 56% 28%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -50,7 +50,27 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Hide scrollbar for cleaner look */
+body::-webkit-scrollbar {
+  width: 6px;
+}
+body::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+body::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 3px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
 }

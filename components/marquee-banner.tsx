@@ -6,20 +6,29 @@ export function MarqueeBanner() {
     "100% Natural & Organic",
     "Farm Fresh Quality",
     "Cultivated With Care",
-    "Premium Quality Seeds",
+    "Premium Quality Grains",
     "Sustainably Sourced",
   ]
 
-  const repeatedItems = [...items, ...items]
+  // Double the items for seamless loop
+  const repeatedItems = [...items, ...items, ...items, ...items]
 
   return (
-    <div className="w-full overflow-hidden bg-secondary py-1.5">
+    <div
+      className="w-full overflow-hidden bg-secondary py-2"
+      role="marquee"
+      aria-label="Announcements"
+    >
       <div className="animate-marquee flex whitespace-nowrap">
         {repeatedItems.map((item, index) => (
           <span
             key={index}
-            className="mx-8 text-xs font-semibold uppercase tracking-wider text-secondary-foreground"
+            className="mx-6 inline-flex items-center text-[11px] font-bold uppercase tracking-[0.15em] text-secondary-foreground md:mx-8"
           >
+            <span
+              className="mr-6 inline-block h-1 w-1 rounded-full bg-secondary-foreground/60 md:mr-8"
+              aria-hidden="true"
+            />
             {item}
           </span>
         ))}

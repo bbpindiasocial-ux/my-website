@@ -36,7 +36,7 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
     })
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
+    setSeedWidth(w >= 1280 ? 360 : w >= 1024 ? 300 : w >= 768 ? 240 : 160)
 
     setIsReady(true)
   }, [heroRef, purityRef])
@@ -47,8 +47,9 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
     return () => window.removeEventListener("resize", measure)
   }, [measure])
 
+  // Re-measure after fonts / images load
   useEffect(() => {
-    const timer = setTimeout(measure, 500)
+    const timer = setTimeout(measure, 600)
     return () => clearTimeout(timer)
   }, [measure])
 
@@ -83,19 +84,23 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
 
   if (!isReady) return null
 
-  const startX = heroRect.left + heroRect.width * 0.04
-  const startY = heroRect.top + 20
+  // Start position: left side of hero
+  const startX = heroRect.left + heroRect.width * 0.05
+  const startY = heroRect.top + 10
   const startScale = 1
   const startRotate = -25
 
+  // End position: center of purity section (the placeholder space)
   const purityCenterX = purityRect.left + purityRect.width * 0.42
-  const purityCenterY = purityRect.top + purityRect.height * 0.2
-  const endScale = 0.85
+  const purityCenterY = purityRect.top + purityRect.height * 0.18
+  const endScale = 0.8
   const endRotate = -5
 
-  const eased = progress < 0.5
-    ? 2 * progress * progress
-    : 1 - Math.pow(-2 * progress + 2, 2) / 2
+  // Smooth easing
+  const eased =
+    progress < 0.5
+      ? 2 * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 2) / 2
 
   const x = startX + (purityCenterX - startX) * eased
   const y = startY + (purityCenterY - startY) * eased
@@ -112,11 +117,11 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         width: seedWidth,
       }}
     >
-      {/* Seed image */}
+      {/* Seed / grain image */}
       <div
         style={{
-          opacity: progress < 0.4 ? 1 : Math.max(0, 1 - (progress - 0.4) / 0.4),
-          transition: "opacity 0.3s ease-out",
+          opacity: progress < 0.35 ? 1 : Math.max(0, 1 - (progress - 0.35) / 0.35),
+          transition: "opacity 0.2s ease-out",
         }}
       >
         <Image
@@ -130,12 +135,12 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         />
       </div>
 
-      {/* Cardamom image */}
+      {/* Cardamom image crossfade */}
       <div
         className="absolute inset-0"
         style={{
-          opacity: progress < 0.35 ? 0 : Math.min(1, (progress - 0.35) / 0.4),
-          transition: "opacity 0.3s ease-out",
+          opacity: progress < 0.3 ? 0 : Math.min(1, (progress - 0.3) / 0.35),
+          transition: "opacity 0.2s ease-out",
         }}
       >
         <Image

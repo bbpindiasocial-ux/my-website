@@ -6,32 +6,26 @@ export const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) 
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 300)
+    const timer = setTimeout(() => setIsVisible(true), 200)
     return () => clearTimeout(timer)
   }, [])
 
   return (
     <section
       ref={ref}
-      className="relative -mt-4 min-h-[60vh] overflow-visible px-6 pb-20 lg:min-h-[75vh] lg:px-12"
+      className="relative min-h-[55vh] overflow-visible px-6 pb-24 lg:min-h-[70vh] lg:px-12"
     >
-      {/* Hero Text */}
-      <div className="relative z-10 flex items-start justify-center pt-8 md:justify-start md:pl-[15%] lg:pl-[20%] lg:pt-12">
+      {/* Hero headline - positioned right of center to leave space for floating seed on left */}
+      <div className="relative z-10 flex items-start justify-center pt-6 md:justify-end md:pr-[5%] lg:pt-10">
         <div className="overflow-hidden">
           <h1
-            className={`text-[clamp(3rem,12vw,11rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary transition-all duration-[1200ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
-              isVisible
-                ? "translate-x-0 opacity-100"
-                : "translate-x-[100px] opacity-0"
-            }`}
+            className={`text-[clamp(3.2rem,11vw,10rem)] font-black uppercase leading-[0.82] tracking-tighter text-primary transition-all duration-[1200ms] ease-[cubic-bezier(0.77,0,0.175,1)]`}
             style={{
-              clipPath: isVisible
-                ? "inset(0 0% 0 0)"
-                : "inset(0 100% 0 0)",
+              clipPath: isVisible ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+              transform: isVisible ? "translateX(0)" : "translateX(80px)",
+              opacity: isVisible ? 1 : 0,
               transition:
-                "clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease-out",
+                "clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease-out",
             }}
           >
             <span className="block">Cultivated</span>
@@ -40,23 +34,32 @@ export const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) 
         </div>
       </div>
 
-      {/* Decorative blurred ghost text behind the seed for depth */}
+      {/* Subtitle text */}
       <div
-        className="pointer-events-none absolute left-[5%] top-8 z-[15] hidden select-none md:block lg:top-12"
+        className={`relative z-10 mt-6 flex justify-center md:justify-end md:pr-[5%] transition-all duration-700 ease-out ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+        }`}
+        style={{ transitionDelay: "800ms" }}
+      >
+        <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-base">
+          Premium quality grains sourced from trusted farms across South India, bringing nature's finest to your table.
+        </p>
+      </div>
+
+      {/* Blurred ghost text for depth - behind the seed */}
+      <div
+        className="pointer-events-none absolute right-[5%] top-6 z-[5] hidden select-none md:block lg:top-10"
         aria-hidden="true"
       >
         <div
-          className={`text-[clamp(3rem,12vw,11rem)] font-black uppercase leading-[0.85] tracking-tighter transition-all duration-[1800ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
-            isVisible ? "opacity-20" : "opacity-0"
-          }`}
+          className={`text-[clamp(3.2rem,11vw,10rem)] font-black uppercase leading-[0.82] tracking-tighter`}
           style={{
             color: "hsl(var(--primary))",
-            filter: "blur(4px)",
-            clipPath: isVisible
-              ? "inset(0 70% 0 0)"
-              : "inset(0 100% 0 0)",
+            filter: "blur(5px)",
+            opacity: isVisible ? 0.1 : 0,
+            clipPath: isVisible ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
             transition:
-              "clip-path 1.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.8s ease-out",
+              "clip-path 2s cubic-bezier(0.77, 0, 0.175, 1), opacity 2s ease-out",
           }}
         >
           <span className="block">Cultivated</span>

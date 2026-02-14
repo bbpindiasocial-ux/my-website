@@ -112,7 +112,7 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        marquee: 'marquee 20s linear infinite',
+        marquee: 'marquee 30s linear infinite',
         'text-reveal': 'text-reveal 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards',
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
         'seed-float': 'seed-float 4s ease-in-out infinite',

@@ -45,7 +45,7 @@ function BenefitStat({
   delay: number
   decimals?: number
 }) {
-  const count = useCountUp(value, 1500, isVisible, decimals)
+  const count = useCountUp(value, 1800, isVisible, decimals)
   const [showStat, setShowStat] = useState(false)
 
   useEffect(() => {
@@ -57,19 +57,19 @@ function BenefitStat({
   return (
     <div
       className={`transition-all duration-700 ease-out ${
-        showStat ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+        showStat ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       }`}
     >
-      <div className="mb-3 h-px w-full bg-foreground/20" />
-      <p className="mb-1 text-xs font-bold uppercase tracking-widest text-foreground/70">
+      <div className="mb-4 h-px w-full bg-foreground/15" />
+      <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/50">
         {label}
       </p>
-      <div className="flex items-start gap-4 lg:gap-6">
+      <div className="flex items-start gap-4 lg:gap-5">
         <p className="shrink-0 text-5xl font-black leading-none tracking-tighter text-primary md:text-6xl lg:text-7xl">
           {decimals > 0 ? count.toFixed(decimals) : Math.round(count)}
           <span className="text-3xl md:text-4xl lg:text-5xl">{suffix}</span>
         </p>
-        <p className="pt-2 text-sm leading-relaxed text-muted-foreground lg:text-base">
+        <p className="pt-2 text-[13px] leading-relaxed text-muted-foreground lg:text-sm">
           {description}
         </p>
       </div>
@@ -81,7 +81,6 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
   const localRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  // Merge the forwarded ref and local ref
   const setRef = useCallback(
     (node: HTMLElement | null) => {
       localRef.current = node
@@ -96,9 +95,7 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      if (entries[0].isIntersecting) {
-        setIsVisible(true)
-      }
+      if (entries[0].isIntersecting) setIsVisible(true)
     },
     []
   )
@@ -106,9 +103,7 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
   useEffect(() => {
     const el = localRef.current
     if (!el) return
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.15,
-    })
+    const observer = new IntersectionObserver(handleIntersection, { threshold: 0.12 })
     observer.observe(el)
     return () => observer.disconnect()
   }, [handleIntersection])
@@ -116,60 +111,56 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
   return (
     <section
       ref={setRef}
-      className="relative overflow-hidden bg-background px-6 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32"
+      className="relative overflow-hidden bg-background px-6 py-20 md:px-12 md:py-28 lg:px-16 lg:py-36"
     >
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 lg:flex-row lg:items-start lg:gap-6 xl:gap-10">
-        {/* Left: Copy */}
+      <div className="mx-auto flex max-w-[1400px] flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-8 xl:gap-12">
+        {/* Left column: Copy */}
         <div
-          className={`flex-1 transition-all duration-700 ease-out ${
-            isVisible
-              ? "translate-x-0 opacity-100"
-              : "-translate-x-[60px] opacity-0"
+          className={`flex-1 transition-all duration-800 ease-out ${
+            isVisible ? "translate-x-0 opacity-100" : "-translate-x-[50px] opacity-0"
           }`}
-          style={{ transitionDelay: "0.2s" }}
+          style={{ transitionDelay: "200ms" }}
         >
           <p
-            className="mb-2 text-lg italic text-muted-foreground md:text-xl"
+            className="mb-3 text-base italic text-muted-foreground md:text-lg"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
           >
             Cultivated with care
           </p>
-          <h2 className="mb-6 text-4xl font-black uppercase leading-[0.9] tracking-tighter text-primary md:text-5xl lg:text-6xl xl:text-7xl">
+          <h2 className="mb-6 text-4xl font-black uppercase leading-[0.88] tracking-tighter text-primary md:text-5xl lg:text-6xl xl:text-7xl">
             <span className="block">Purity In</span>
             <span className="block">Every Grain</span>
           </h2>
-          <p className="mb-8 max-w-md text-base leading-relaxed text-muted-foreground lg:text-lg">
+          <p className="mb-8 max-w-md text-[15px] leading-relaxed text-muted-foreground lg:text-base">
             Our meticulous sourcing process ensures the highest quality grain,
             selecting only from trusted farms across South India.{" "}
             {"That's how Keerthi Nirmal became the best rice brand in Kerala."}
           </p>
           <a
             href="#"
-            className="group inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-bold uppercase tracking-wider text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-lg md:px-8 md:py-4 md:text-base"
+            className="group inline-flex items-center gap-2 bg-primary px-7 py-3.5 text-[13px] font-bold uppercase tracking-[0.12em] text-primary-foreground transition-all duration-300 hover:gap-4 hover:shadow-lg md:px-8 md:py-4 md:text-sm"
           >
             Learn More
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 md:h-5 md:w-5" />
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
 
-        {/* Center: Placeholder space for the scroll-linked floating image */}
+        {/* Center: Placeholder for the scroll-linked floating image */}
         <div
-          className="hidden w-full max-w-[240px] flex-shrink-0 md:max-w-[280px] lg:block lg:max-w-[300px] xl:max-w-[340px]"
+          className="hidden w-full max-w-[220px] flex-shrink-0 md:max-w-[260px] lg:block lg:max-w-[280px] xl:max-w-[320px]"
           aria-hidden="true"
         >
           <div className="aspect-[3/4]" />
         </div>
 
-        {/* Right: Benefits */}
+        {/* Right column: Benefits stats */}
         <div
-          className={`flex flex-1 flex-col gap-8 transition-all duration-700 ease-out ${
-            isVisible
-              ? "translate-x-0 opacity-100"
-              : "translate-x-[60px] opacity-0"
+          className={`flex flex-1 flex-col gap-10 transition-all duration-800 ease-out ${
+            isVisible ? "translate-x-0 opacity-100" : "translate-x-[50px] opacity-0"
           }`}
-          style={{ transitionDelay: "0.3s" }}
+          style={{ transitionDelay: "300ms" }}
         >
-          <h3 className="text-3xl font-black uppercase tracking-tight text-foreground md:text-4xl">
+          <h3 className="text-2xl font-black uppercase tracking-tight text-foreground md:text-3xl">
             Benefits
           </h3>
 
@@ -177,16 +168,16 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
             label="Water Content"
             value={51}
             suffix="%"
-            description="It is like the seed put in the soil, the more one sows, the greater the harvest. We believe in giving back to the environment many folds than what we take from it."
+            description="Our rice retains optimal moisture, ensuring every grain cooks to a soft, fluffy perfection that families love."
             isVisible={isVisible}
             delay={400}
           />
 
           <BenefitStat
-            label="Water Content"
+            label="Glycemic Index"
             value={6.2}
             suffix=""
-            description="It is like the seed put in the soil, the more one sows, the greater the harvest. We believe in giving back to the environment many folds than what we take from it."
+            description="A low glycemic option that provides sustained energy release, making it the healthier choice for daily meals."
             isVisible={isVisible}
             delay={700}
             decimals={1}
