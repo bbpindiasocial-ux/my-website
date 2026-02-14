@@ -108,9 +108,6 @@ export const DeliveredSection = forwardRef<HTMLElement>(
                 height={600}
                 className="h-auto w-full object-contain"
                 unoptimized
-                style={{
-                  clipPath: "inset(0 55% 0 0)",
-                }}
               />
             </div>
 
@@ -148,9 +145,6 @@ export const DeliveredSection = forwardRef<HTMLElement>(
                 height={600}
                 className="h-auto w-full object-contain"
                 unoptimized
-                style={{
-                  clipPath: "inset(0 0 0 45%)",
-                }}
               />
             </div>
           </div>
