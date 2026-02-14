@@ -25,7 +25,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
       (entries: IntersectionObserverEntry[]) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true)
-          setTimeout(() => setBagsVisible(true), 600)
+          setTimeout(() => setBagsVisible(true), 500)
         }
       },
       []
@@ -34,7 +34,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     useEffect(() => {
       const el = localRef.current
       if (!el) return
-      const observer = new IntersectionObserver(handleIntersection, { threshold: 0.1 })
+      const observer = new IntersectionObserver(handleIntersection, { threshold: 0.05 })
       observer.observe(el)
       return () => observer.disconnect()
     }, [handleIntersection])
@@ -81,34 +81,41 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             </h2>
           </div>
 
-          {/* Three product bags */}
-          <div className="relative flex items-end justify-center">
-            {/* Yellow Bag - Left */}
+          {/* Three product bags with dramatic slide-in */}
+          <div className="relative flex items-end justify-center gap-0">
+            {/* Yellow Bag - slides in from FAR LEFT */}
             <div
-              className={`relative z-10 w-[28%] max-w-[300px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                bagsVisible
-                  ? "translate-x-0 translate-y-0 opacity-100"
-                  : "-translate-x-20 translate-y-16 opacity-0"
-              }`}
-              style={{ transitionDelay: "200ms" }}
+              className="relative z-10 w-[28%] max-w-[300px]"
+              style={{
+                transform: bagsVisible
+                  ? "translateX(0) translateY(0) rotate(0deg)"
+                  : "translateX(-120%) translateY(80px) rotate(-12deg)",
+                opacity: bagsVisible ? 1 : 0,
+                transition:
+                  "transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.8s ease-out 0.15s",
+              }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-96-hGGXNQH7kZ9QTdUgwv0YergS2TPyEB.png"
                 alt="Keerthi Nirmal Jaya Rice yellow bag"
                 width={400}
                 height={600}
-                className="h-auto w-full object-contain"
+                className="h-auto w-full object-contain drop-shadow-xl"
                 unoptimized
               />
             </div>
 
-            {/* Red Bag - Center (larger, overlapping) */}
+            {/* Red Bag - Center, rises up from below with scale */}
             <div
-              className={`relative z-20 -mx-[6%] w-[36%] max-w-[360px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:-mx-[4%] ${
-                bagsVisible
-                  ? "translate-y-0 scale-100 opacity-100"
-                  : "translate-y-24 scale-90 opacity-0"
-              }`}
+              className="relative z-20 -mx-[6%] w-[36%] max-w-[360px] md:-mx-[4%]"
+              style={{
+                transform: bagsVisible
+                  ? "translateY(0) scale(1)"
+                  : "translateY(200px) scale(0.7)",
+                opacity: bagsVisible ? 1 : 0,
+                transition:
+                  "transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease-out",
+              }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-89-nTsRrpdjrkJrI5ZzXRkp20Bukg02rh.png"
@@ -120,21 +127,24 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               />
             </div>
 
-            {/* Blue Bag - Right */}
+            {/* Blue Bag - slides in from FAR RIGHT */}
             <div
-              className={`relative z-10 w-[28%] max-w-[300px] transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                bagsVisible
-                  ? "translate-x-0 translate-y-0 opacity-100"
-                  : "translate-x-20 translate-y-16 opacity-0"
-              }`}
-              style={{ transitionDelay: "200ms" }}
+              className="relative z-10 w-[28%] max-w-[300px]"
+              style={{
+                transform: bagsVisible
+                  ? "translateX(0) translateY(0) rotate(0deg)"
+                  : "translateX(120%) translateY(80px) rotate(12deg)",
+                opacity: bagsVisible ? 1 : 0,
+                transition:
+                  "transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, opacity 0.8s ease-out 0.15s",
+              }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-100-PpYr5t3HooHC7CjGLi8QCO9f7W8TkG.png"
                 alt="Keerthi Nirmal Short Grain Matta blue bag"
                 width={400}
                 height={600}
-                className="h-auto w-full object-contain"
+                className="h-auto w-full object-contain drop-shadow-xl"
                 unoptimized
               />
             </div>
