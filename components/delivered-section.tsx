@@ -1,31 +1,18 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback, forwardRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
-export const DeliveredSection = forwardRef<HTMLElement>(
-  function DeliveredSection(_, forwardedRef) {
-    const localRef = useRef<HTMLElement>(null)
-    const [scrollProgress, setScrollProgress] = useState(0)
-
-    const setRef = useCallback(
-      (node: HTMLElement | null) => {
-        localRef.current = node
-        if (typeof forwardedRef === "function") {
-          forwardedRef(node)
-        } else if (forwardedRef) {
-          ;(forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node
-        }
-      },
-      [forwardedRef]
-    )
+export function DeliveredSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
     useEffect(() => {
       let raf = 0
       function onScroll() {
         if (raf) cancelAnimationFrame(raf)
         raf = requestAnimationFrame(() => {
-          const el = localRef.current
+          const el = sectionRef.current
           if (!el) return
           const rect = el.getBoundingClientRect()
           const viewH = window.innerHeight
@@ -85,7 +72,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
 
     return (
       <section
-        ref={setRef}
+        ref={sectionRef}
         className="relative overflow-hidden bg-background px-6 py-20 md:px-12 md:py-28 lg:px-16 lg:py-36"
         style={{ minHeight: "150vh" }}
       >
@@ -255,6 +242,5 @@ export const DeliveredSection = forwardRef<HTMLElement>(
           </div>
         </div>
       </section>
-    )
-  }
-)
+  )
+}
