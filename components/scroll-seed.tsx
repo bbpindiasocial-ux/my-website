@@ -6,13 +6,15 @@ import Image from "next/image"
 interface ScrollSeedProps {
   heroRef: React.RefObject<HTMLElement | null>
   purityRef: React.RefObject<HTMLElement | null>
+  deliveredRef: React.RefObject<HTMLElement | null>
 }
 
-export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
+export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps) {
   const seedRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const [heroRect, setHeroRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [purityRect, setPurityRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
+  const [deliveredRect, setDeliveredRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [isReady, setIsReady] = useState(false)
   const [seedWidth, setSeedWidth] = useState(340)
   const rafRef = useRef<number>(0)
@@ -35,11 +37,21 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
       width: pRect.width,
     })
 
+    if (deliveredRef.current) {
+      const dRect = deliveredRef.current.getBoundingClientRect()
+      setDeliveredRect({
+        top: dRect.top + scrollY,
+        left: dRect.left,
+        height: dRect.height,
+        width: dRect.width,
+      })
+    }
+
     const w = window.innerWidth
     setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
 
     setIsReady(true)
-  }, [heroRef, purityRef])
+  }, [heroRef, purityRef, deliveredRef])
 
   useEffect(() => {
     measure()
@@ -60,8 +72,13 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         const scrollY = window.scrollY
         const viewH = window.innerHeight
 
+        // Phase 1: hero to purity center (0 -> 0.6)
+        // Phase 2: purity center to delivered section top (0.6 -> 1.0) - seed fades out
         const animStart = heroRect.top
-        const animEnd = purityRect.top + purityRect.height * 0.5 - viewH * 0.15
+        const purityMid = purityRect.top + purityRect.height * 0.5 - viewH * 0.15
+        const animEnd = deliveredRect.top > 0
+          ? deliveredRect.top - viewH * 0.3
+          : purityMid + viewH * 0.5
 
         if (animEnd <= animStart) {
           setProgress(0)
@@ -79,9 +96,14 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
       window.removeEventListener("scroll", onScroll)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
     }
-  }, [heroRef, purityRef, heroRect, purityRect])
+  }, [heroRef, purityRef, heroRect, purityRect, deliveredRect])
 
   if (!isReady) return null
+
+  // Phase 1 progress (0 to 0.6 -> normalized 0-1)
+  const phase1 = Math.max(0, Math.min(1, progress / 0.6))
+  // Phase 2 progress (0.6 to 1.0 -> normalized 0-1)
+  const phase2 = Math.max(0, Math.min(1, (progress - 0.6) / 0.4))
 
   const startX = heroRect.left + heroRect.width * 0.04
   const startY = heroRect.top + 20
@@ -90,17 +112,41 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
 
   const purityCenterX = purityRect.left + purityRect.width * 0.42
   const purityCenterY = purityRect.top + purityRect.height * 0.2
-  const endScale = 0.85
-  const endRotate = -5
+  const midScale = 0.85
+  const midRotate = -5
 
-  const eased = progress < 0.5
-    ? 2 * progress * progress
-    : 1 - Math.pow(-2 * progress + 2, 2) / 2
+  // End position: center of viewport where delivered section is
+  const endX = (deliveredRect.left || purityRect.left) + (deliveredRect.width || purityRect.width) * 0.45
+  const endY = deliveredRect.top > 0
+    ? deliveredRect.top + window.innerHeight * 0.4
+    : purityCenterY + purityRect.height * 0.6
+  const endScale = 0.6
+  const endRotate = 0
 
-  const x = startX + (purityCenterX - startX) * eased
-  const y = startY + (purityCenterY - startY) * eased
-  const scale = startScale + (endScale - startScale) * eased
-  const rotate = startRotate + (endRotate - startRotate) * eased
+  const eased1 = phase1 < 0.5
+    ? 2 * phase1 * phase1
+    : 1 - Math.pow(-2 * phase1 + 2, 2) / 2
+
+  const eased2 = phase2 < 0.5
+    ? 2 * phase2 * phase2
+    : 1 - Math.pow(-2 * phase2 + 2, 2) / 2
+
+  let x: number, y: number, scale: number, rotate: number
+
+  if (progress <= 0.6) {
+    x = startX + (purityCenterX - startX) * eased1
+    y = startY + (purityCenterY - startY) * eased1
+    scale = startScale + (midScale - startScale) * eased1
+    rotate = startRotate + (midRotate - startRotate) * eased1
+  } else {
+    x = purityCenterX + (endX - purityCenterX) * eased2
+    y = purityCenterY + (endY - purityCenterY) * eased2
+    scale = midScale + (endScale - midScale) * eased2
+    rotate = midRotate + (endRotate - midRotate) * eased2
+  }
+
+  // Fade out seed once we approach the delivered section
+  const fadeOut = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) / 0.2) : 1
 
   return (
     <div
@@ -110,12 +156,13 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
         willChange: "transform",
         width: seedWidth,
+        opacity: fadeOut,
       }}
     >
-      {/* Seed image */}
+      {/* Seed image - visible in phase 1, fades to cardamom */}
       <div
         style={{
-          opacity: progress < 0.4 ? 1 : Math.max(0, 1 - (progress - 0.4) / 0.4),
+          opacity: progress < 0.4 ? 1 : Math.max(0, 1 - (progress - 0.4) / 0.25),
           transition: "opacity 0.3s ease-out",
         }}
       >
@@ -130,16 +177,16 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         />
       </div>
 
-      {/* Cardamom image */}
+      {/* Cardamom image - crossfades in */}
       <div
         className="absolute inset-0"
         style={{
-          opacity: progress < 0.35 ? 0 : Math.min(1, (progress - 0.35) / 0.4),
+          opacity: progress < 0.35 ? 0 : Math.min(1, (progress - 0.35) / 0.3),
           transition: "opacity 0.3s ease-out",
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-40-removebg-preview%201-4we2BvDPWE5vYKekYkG0M1YrAMuwGH.png"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_113737-removebg-preview-dd53TvlwxlkJrfXzvFt4EJWwQSqwI6.png"
           alt="Cardamom pod"
           width={400}
           height={600}
