@@ -48,7 +48,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     }
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 380 : w >= 768 ? 300 : 200)
+    setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
 
     setIsReady(true)
   }, [heroRef, purityRef, deliveredRef])
@@ -103,10 +103,10 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   /* ---- Position keypoints ---- */
 
   // Phase 1 endpoint: Hero position (seed sits here)
-  const startX = heroRect.left + heroRect.width * 0.22
-  const startY = heroRect.top + heroRect.height * 0.08
+  const startX = heroRect.left + heroRect.width * 0.20
+  const startY = heroRect.top + heroRect.height * 0.02
   const startScale = 1
-  const startRotate = -35
+  const startRotate = -30
 
   // Phase 1 mid-point: Purity center
   const purityCenterX = purityRect.left + purityRect.width * 0.42
