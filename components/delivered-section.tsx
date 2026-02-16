@@ -46,52 +46,56 @@ export const DeliveredSection = forwardRef<HTMLElement>(
       >
         {/* Right green circle - higher, overlapping heading area, edge-cropped */}
         <div
-          className="absolute z-20 hidden flex-col items-center justify-center rounded-full bg-primary p-8 text-center text-primary-foreground md:flex lg:p-10"
+          className="absolute z-5 hidden items-center justify-center rounded-full bg-primary text-center text-primary-foreground md:flex"
           style={{
-            width: "clamp(200px, 22vw, 320px)",
-            height: "clamp(200px, 22vw, 320px)",
-            top: "8%",
-            right: "-3%",
+            width: "clamp(240px, 24vw, 360px)",
+            aspectRatio: "1 / 1",
+            top: "5%",
+            right: "-5%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "1.8s",
           }}
         >
-          <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
-            Trusted
-          </span>
-          <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
-            50+
-          </span>
-          <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
-            Years of quality and tradition
-          </span>
+          <div className="flex flex-col items-center justify-center p-6 lg:p-8">
+            <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
+              Trusted
+            </span>
+            <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
+              50+
+            </span>
+            <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
+              Years of quality and tradition
+            </span>
+          </div>
         </div>
 
         {/* Left green circle - lower, overlapping bags area, edge-cropped */}
         <div
-          className="absolute z-20 hidden flex-col items-center justify-center rounded-full bg-primary p-8 text-center text-primary-foreground md:flex lg:p-10"
+          className="absolute z-5 hidden items-center justify-center rounded-full bg-primary text-center text-primary-foreground md:flex"
           style={{
-            width: "clamp(200px, 22vw, 320px)",
-            height: "clamp(200px, 22vw, 320px)",
-            bottom: "8%",
-            left: "-3%",
+            width: "clamp(240px, 24vw, 360px)",
+            aspectRatio: "1 / 1",
+            bottom: "5%",
+            left: "-5%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "2.2s",
           }}
         >
-          <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
-            Premium
-          </span>
-          <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
-            100%
-          </span>
-          <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
-            Natural grain sourced from Kerala
-          </span>
+          <div className="flex flex-col items-center justify-center p-6 lg:p-8">
+            <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
+              Premium
+            </span>
+            <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
+              100%
+            </span>
+            <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
+              Natural grain sourced from Kerala
+            </span>
+          </div>
         </div>
 
         {/* Main content */}
