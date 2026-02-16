@@ -44,14 +44,14 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         ref={setRef}
         className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background"
       >
-        {/* Left green blob - overlaps yellow bag, edge-cropped */}
+        {/* Left green blob - overlaps yellow bag */}
         <div
           className="absolute hidden bg-primary md:block"
           style={{
             width: "clamp(220px, 20vw, 320px)",
             height: "clamp(220px, 20vw, 320px)",
-            bottom: "8%",
-            left: "8%",
+            bottom: "12%",
+            left: "calc(50% - clamp(150px, 21vw, 280px) - clamp(60px, 5vw, 80px))",
             borderRadius: "62% 38% 46% 54% / 60% 44% 56% 40%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0) rotate(-5deg)" : "translateY(30px) rotate(-5deg)",
