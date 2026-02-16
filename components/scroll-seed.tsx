@@ -103,7 +103,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   /* ---- Position keypoints ---- */
 
   // Phase 1 endpoint: Hero position (seed sits here)
-  const startX = heroRect.left + heroRect.width * 0.04
+  const startX = heroRect.left + heroRect.width * 0.14
   const startY = heroRect.top + 20
   const startScale = 1
   const startRotate = -25
