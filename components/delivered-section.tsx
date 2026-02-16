@@ -44,65 +44,93 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         ref={setRef}
         className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background"
       >
-        {/* Right green circle - higher, overlapping heading area, edge-cropped */}
+        {/* Left green circle - lower-left, BEHIND bags, edge-cropped */}
         <div
-          className="absolute z-5 hidden items-center justify-center rounded-full bg-primary text-center text-primary-foreground md:flex"
+          className="absolute hidden rounded-full bg-primary md:block"
           style={{
-            width: "clamp(240px, 24vw, 360px)",
-            aspectRatio: "1 / 1",
-            top: "5%",
-            right: "-5%",
+            width: "clamp(300px, 28vw, 420px)",
+            height: "clamp(300px, 28vw, 420px)",
+            bottom: "2%",
+            left: "-6%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "1.8s",
+            zIndex: 1,
           }}
         >
-          <div className="flex flex-col items-center justify-center p-6 lg:p-8">
-            <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
-              Trusted
+          <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center text-primary-foreground lg:p-10">
+            <svg
+              className="mb-2"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2v8m0 0c-2 0-4-1-6-3m6 3c2 0 4-1 6-3M12 10v12M8 22h8" />
+            </svg>
+            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+              Long Grain
             </span>
-            <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
-              50+
+            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+              Matta Rice
             </span>
-            <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
-              Years of quality and tradition
-            </span>
+            <p className="mt-2 max-w-[85%] text-[clamp(0.55rem,0.8vw,0.7rem)] leading-snug opacity-85">
+              Our meticulous sourcing process ensures the highest quality grain, selecting only from trusted farms across South India. {"That's"} how Keerthi Nirmal became the best rice brand in Kerala.
+            </p>
           </div>
         </div>
 
-        {/* Left green circle - lower, overlapping bags area, edge-cropped */}
+        {/* Right green circle - upper-right, BEHIND bags, edge-cropped */}
         <div
-          className="absolute z-5 hidden items-center justify-center rounded-full bg-primary text-center text-primary-foreground md:flex"
+          className="absolute hidden rounded-full bg-primary md:block"
           style={{
-            width: "clamp(240px, 24vw, 360px)",
-            aspectRatio: "1 / 1",
-            bottom: "5%",
-            left: "-5%",
+            width: "clamp(300px, 28vw, 420px)",
+            height: "clamp(300px, 28vw, 420px)",
+            top: "8%",
+            right: "-6%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(30px)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "2.2s",
+            zIndex: 1,
           }}
         >
-          <div className="flex flex-col items-center justify-center p-6 lg:p-8">
-            <span className="text-[clamp(0.65rem,1vw,0.85rem)] font-bold uppercase tracking-wider">
-              Premium
+          <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center text-primary-foreground lg:p-10">
+            <svg
+              className="mb-2"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2v8m0 0c-2 0-4-1-6-3m6 3c2 0 4-1 6-3M12 10v12M8 22h8" />
+            </svg>
+            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+              Long Grain
             </span>
-            <span className="text-[clamp(2rem,3.5vw,3.5rem)] font-black leading-none">
-              100%
+            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+              Matta Rice
             </span>
-            <span className="mt-1 max-w-[80%] text-[clamp(0.55rem,0.9vw,0.75rem)] leading-tight opacity-80">
-              Natural grain sourced from Kerala
-            </span>
+            <p className="mt-2 max-w-[85%] text-[clamp(0.55rem,0.8vw,0.7rem)] leading-snug opacity-85">
+              Our meticulous sourcing process ensures the highest quality grain, selecting only from trusted farms across South India. {"That's"} how Keerthi Nirmal became the best rice brand in Kerala.
+            </p>
           </div>
         </div>
 
-        {/* Main content */}
+        {/* Main content - heading + bags */}
         <div className="relative z-10 flex flex-col items-center px-4">
           {/* Heading */}
           <h2
-            className="relative z-30 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
+            className="relative z-30 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-8"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -115,19 +143,20 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Bags container */}
+          {/* Bags container - absolute positioned bags */}
           <div
             className="relative"
             style={{
-              width: "clamp(280px, 40vw, 520px)",
-              height: "clamp(220px, 32vw, 400px)",
+              width: "clamp(300px, 42vw, 560px)",
+              height: "clamp(220px, 30vw, 400px)",
             }}
           >
-            {/* Yellow bag - behind, left, slides from LEFT (negative X) */}
+            {/* Yellow bag - behind, bottom-left, slides from LEFT (negative X) */}
             <div
-              className="absolute bottom-0 left-0 z-0"
+              className="absolute bottom-0 z-[2]"
               style={{
-                width: "46%",
+                width: "42%",
+                left: "2%",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(-80px)",
                 transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
@@ -144,11 +173,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               />
             </div>
 
-            {/* Blue bag - behind, right, slides from RIGHT (positive X) */}
+            {/* Blue bag - behind, bottom-right, slides from RIGHT (positive X) */}
             <div
-              className="absolute bottom-0 right-0 z-0"
+              className="absolute bottom-0 z-[2]"
               style={{
-                width: "46%",
+                width: "42%",
+                right: "2%",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(80px)",
                 transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
@@ -167,13 +197,13 @@ export const DeliveredSection = forwardRef<HTMLElement>(
 
             {/* Red bag - front center, largest, appears first */}
             <div
-              className="absolute bottom-0 left-1/2 z-10"
+              className="absolute bottom-0 left-1/2 z-[5]"
               style={{
-                width: "62%",
+                width: "58%",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible
                   ? "translateX(-50%) scale(1)"
-                  : "translateX(-50%) scale(0.8)",
+                  : "translateX(-50%) scale(0.85)",
                 transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
                 transitionDelay: "0.6s",
               }}
