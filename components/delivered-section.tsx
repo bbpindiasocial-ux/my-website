@@ -42,12 +42,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative overflow-hidden bg-background px-6 py-20 md:px-12 md:py-28 lg:px-16 lg:py-36"
+        className="relative flex h-svh min-h-[500px] items-center justify-center overflow-hidden bg-background px-6"
       >
-        <div className="mx-auto flex max-w-7xl flex-col items-center">
+        <div className="flex flex-col items-center gap-6 md:gap-8">
           {/* Heading */}
           <h2
-            className="relative z-10 text-center text-[clamp(2.5rem,10vw,9rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary"
+            className="relative z-10 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -62,7 +62,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
 
           {/* Rice packet image */}
           <div
-            className={`mt-10 w-full max-w-[280px] transition-all duration-1000 ease-out md:mt-14 md:max-w-[340px] lg:mt-16 lg:max-w-[400px] ${
+            className={`w-full max-w-[180px] transition-all duration-1000 ease-out md:max-w-[240px] lg:max-w-[300px] ${
               isVisible
                 ? "translate-y-0 opacity-100 scale-100"
                 : "translate-y-16 opacity-0 scale-90"
