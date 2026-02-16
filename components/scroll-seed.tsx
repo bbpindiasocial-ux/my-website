@@ -11,13 +11,12 @@ interface ScrollSeedProps {
 
 export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps) {
   const seedRef = useRef<HTMLDivElement>(null)
-  // progress 0-1 covers hero -> purity center
-  // progress 1-2 covers purity center -> delivered center
+  // progress 0-1: hero -> purity center
+  // progress 1-2: purity center -> delivered center
   const [progress, setProgress] = useState(0)
   const [heroRect, setHeroRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [purityRect, setPurityRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [deliveredRect, setDeliveredRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
-  const [placeholderCenter, setPlaceholderCenter] = useState({ x: 0, y: 0 })
   const [isReady, setIsReady] = useState(false)
   const [seedWidth, setSeedWidth] = useState(340)
   const rafRef = useRef<number>(0)
@@ -48,12 +47,6 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       width: dRect.width,
     })
 
-    // Estimate center of purity section for the floating image
-    setPlaceholderCenter({
-      x: pRect.left + pRect.width / 2,
-      y: pRect.top + scrollY + pRect.height * 0.4,
-    })
-
     const w = window.innerWidth
     setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
 
@@ -77,11 +70,10 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       rafRef.current = requestAnimationFrame(() => {
         if (!heroRef.current || !purityRef.current || !deliveredRef.current) return
         const scrollY = window.scrollY
-        const viewH = window.innerHeight
 
         // Phase 1: hero -> purity center (progress 0-1)
         const phase1Start = heroRect.top
-        const phase1End = purityRect.top + purityRect.height * 0.35
+        const phase1End = purityRect.top + purityRect.height * 0.5 - window.innerHeight * 0.15
 
         // Phase 2: purity center -> delivered center (progress 1-2)
         const phase2Start = phase1End
@@ -117,57 +109,74 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
   if (!isReady) return null
 
-  // Easing function
   const ease = (t: number) =>
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
-  // --- Phase 1: hero start -> purity center ---
+  // --- Positions ---
+  // Phase 1 start: top-left of hero
   const startX = heroRect.left + heroRect.width * 0.04
   const startY = heroRect.top + 20
 
-  const midX = placeholderCenter.x - seedWidth / 2
-  const midY = placeholderCenter.y - (seedWidth * 1.3) / 2
+  // Phase 1 end / Phase 2 start: center of purity section
+  const purityCenterX = purityRect.left + purityRect.width * 0.42
+  const purityCenterY = purityRect.top + purityRect.height * 0.2
 
-  // --- Phase 2: purity center -> delivered center ---
+  // Phase 2 end: center of delivered section
   const endX = deliveredRect.left + deliveredRect.width / 2 - seedWidth / 2
-  const endY = deliveredRect.top + deliveredRect.height * 0.35 - (seedWidth * 1.3) / 2
+  const endY = deliveredRect.top + deliveredRect.height * 0.3 - (seedWidth * 1.3) / 2
 
   let x: number, y: number, scale: number, rotate: number
 
   if (progress <= 1) {
     // Phase 1: hero -> purity center
     const p1 = ease(Math.max(0, Math.min(1, progress)))
-    x = startX + (midX - startX) * p1
-    y = startY + (midY - startY) * p1
+    x = startX + (purityCenterX - startX) * p1
+    y = startY + (purityCenterY - startY) * p1
     scale = 1 + (0.85 - 1) * p1
-    rotate = -25 + (0 - -25) * p1
+    rotate = -25 + (25) * p1 // -25 -> 0
   } else {
     // Phase 2: purity center -> delivered center
     const p2 = ease(Math.max(0, Math.min(1, progress - 1)))
-    x = midX + (endX - midX) * p2
-    y = midY + (endY - midY) * p2
-    scale = 0.85 + (0.75 - 0.85) * p2
+    x = purityCenterX + (endX - purityCenterX) * p2
+    y = purityCenterY + (endY - purityCenterY) * p2
+    scale = 0.85 + (0.8 - 0.85) * p2
     rotate = 0
   }
 
-  // Image opacities:
-  // Seed: visible 0-0.5, fades out 0.5-0.8
+  // --- Image layer opacities ---
+  // Layer 1: Seed (frame-3) - visible at start, fades out as cardamom fades in
+  // Visible 0-0.3, fades out 0.3-0.6
   const seedOpacity =
-    progress < 0.5 ? 1 : progress < 0.8 ? 1 - (progress - 0.5) / 0.3 : 0
+    progress < 0.3 ? 1 : progress < 0.6 ? 1 - (progress - 0.3) / 0.3 : 0
 
-  // Rice grain: fades in 0.5-0.8, visible 0.8-1.5, fades out 1.5-1.8
-  const riceGrainOpacity =
-    progress < 0.5
+  // Layer 2: Cardamom (frame-40) - the purity section center image
+  // Fades in 0.3-0.6, stays visible through purity, fades out 1.0-1.3
+  const cardamomOpacity =
+    progress < 0.3
       ? 0
-      : progress < 0.8
-        ? (progress - 0.5) / 0.3
+      : progress < 0.6
+        ? (progress - 0.3) / 0.3
+        : progress < 1.0
+          ? 1
+          : progress < 1.3
+            ? 1 - (progress - 1.0) / 0.3
+            : 0
+
+  // Layer 3: Rice grain - transition image between sections
+  // Fades in 1.0-1.3, fades out 1.5-1.8
+  const riceGrainOpacity =
+    progress < 1.0
+      ? 0
+      : progress < 1.3
+        ? (progress - 1.0) / 0.3
         : progress < 1.5
           ? 1
           : progress < 1.8
             ? 1 - (progress - 1.5) / 0.3
             : 0
 
-  // Rice packet: fades in 1.5-1.8, stays visible after
+  // Layer 4: Rice packet - final image in delivered section
+  // Fades in 1.5-1.8, stays visible
   const ricePacketOpacity =
     progress < 1.5 ? 0 : progress < 1.8 ? (progress - 1.5) / 0.3 : 1
 
@@ -199,7 +208,25 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         />
       </div>
 
-      {/* Layer 2: Rice grain image */}
+      {/* Layer 2: Cardamom pod */}
+      <div
+        className="absolute inset-0"
+        style={{
+          opacity: cardamomOpacity,
+          transition: "opacity 0.15s ease-out",
+        }}
+      >
+        <Image
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-40-removebg-preview%201-4we2BvDPWE5vYKekYkG0M1YrAMuwGH.png"
+          alt="Cardamom pod"
+          width={400}
+          height={600}
+          className="h-auto w-full object-contain drop-shadow-2xl"
+          unoptimized
+        />
+      </div>
+
+      {/* Layer 3: Rice grain */}
       <div
         className="absolute inset-0"
         style={{
@@ -217,7 +244,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         />
       </div>
 
-      {/* Layer 3: Red rice packet */}
+      {/* Layer 4: Red rice packet */}
       <div
         className="absolute inset-0"
         style={{
