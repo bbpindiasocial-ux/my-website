@@ -42,12 +42,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background px-6 py-10"
+        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background px-4 py-8 md:px-8"
       >
-        <div className="flex max-h-full flex-col items-center justify-center">
+        <div className="flex max-h-full w-full max-w-6xl flex-col items-center justify-center">
           {/* Heading */}
           <h2
-            className="relative z-10 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
+            className="relative z-30 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -60,55 +60,126 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packets - overlapping with absolute positioning */}
-          <div
-            className="relative"
-            style={{
-              width: "clamp(280px, 40vw, 500px)",
-              height: "clamp(220px, 32vw, 420px)",
-            }}
-          >
-            {/* Yellow bag - behind red, bottom-aligned, left side */}
+          {/* Bags + green circles row */}
+          <div className="relative flex w-full items-center justify-center">
+            {/* Left green circle */}
             <div
-              className={`absolute bottom-0 left-0 z-0 transition-all duration-1000 ease-out ${
-                isVisible ? "opacity-100" : "opacity-0"
-              }`}
+              className="z-20 mr-4 hidden flex-shrink-0 flex-col items-center justify-center rounded-full bg-primary p-6 text-center text-primary-foreground md:mr-8 md:flex md:p-8"
               style={{
-                transitionDelay: "1.4s",
-                width: "48%",
-                transform: isVisible ? "translateX(0)" : "translateX(-80px)",
+                width: "clamp(120px, 14vw, 180px)",
+                height: "clamp(120px, 14vw, 180px)",
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+                transitionDelay: "2.2s",
               }}
             >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JAYA-RISE-5-KG.jpg-BK.jpg-removebg-preview-Ft6XzJgswLTJ8mfPVq8aHiaYuxUM3g.png"
-                alt="Keerthi Nirmal Jaya Rice bag"
-                width={400}
-                height={600}
-                className="h-auto w-full object-contain drop-shadow-xl"
-                unoptimized
-              />
+              <span className="text-[clamp(0.6rem,1vw,0.75rem)] font-bold uppercase tracking-wider">
+                Premium
+              </span>
+              <span className="text-[clamp(1.5rem,2.5vw,2.5rem)] font-black leading-none">
+                100%
+              </span>
+              <span className="mt-1 text-[clamp(0.5rem,0.8vw,0.65rem)] leading-tight opacity-80">
+                Natural grain sourced from Kerala
+              </span>
             </div>
 
-            {/* Red bag - in front, bottom-aligned, right side overlapping yellow */}
+            {/* Bags container */}
             <div
-              className={`absolute bottom-0 right-0 z-10 transition-all duration-1000 ease-out ${
-                isVisible
-                  ? "translate-y-0 opacity-100 scale-100"
-                  : "translate-y-16 opacity-0 scale-90"
-              }`}
+              className="relative flex-shrink-0"
               style={{
-                transitionDelay: "0.6s",
-                width: "68%",
+                width: "clamp(260px, 36vw, 460px)",
+                height: "clamp(200px, 30vw, 380px)",
               }}
             >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
-                alt="Keerthi Nirmal Long Grain Matta rice bag"
-                width={400}
-                height={600}
-                className="h-auto w-full object-contain drop-shadow-2xl"
-                unoptimized
-              />
+              {/* Yellow bag - behind, left, slides from LEFT (negative X) */}
+              <div
+                className="absolute bottom-0 left-0 z-0"
+                style={{
+                  width: "46%",
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateX(0)" : "translateX(-80px)",
+                  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+                  transitionDelay: "1.0s",
+                }}
+              >
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JAYA-RISE-5-KG.jpg-BK.jpg-removebg-preview-6EQ59iRQ8XXPm5TszEdd4Ju0RTktNL.png"
+                  alt="Keerthi Nirmal Jaya Rice bag"
+                  width={400}
+                  height={600}
+                  className="h-auto w-full object-contain drop-shadow-xl"
+                  unoptimized
+                />
+              </div>
+
+              {/* Blue bag - behind, right, slides from RIGHT (positive X) */}
+              <div
+                className="absolute bottom-0 right-0 z-0"
+                style={{
+                  width: "46%",
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateX(0)" : "translateX(80px)",
+                  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+                  transitionDelay: "1.4s",
+                }}
+              >
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/f-short-grain-matta-removebg-preview%20%281%29-93vCOwafpHa8qh2hrS7F3XLe4qbTEw.png"
+                  alt="Keerthi Nirmal Short Grain Matta rice bag"
+                  width={400}
+                  height={600}
+                  className="h-auto w-full object-contain drop-shadow-xl"
+                  unoptimized
+                />
+              </div>
+
+              {/* Red bag - front center, appears first */}
+              <div
+                className="absolute bottom-0 left-1/2 z-10"
+                style={{
+                  width: "60%",
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible
+                    ? "translateX(-50%) scale(1)"
+                    : "translateX(-50%) scale(0.8)",
+                  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+                  transitionDelay: "0.6s",
+                }}
+              >
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-3lMF5e5XOzqJTmtBKeCYCwoY4jOYqy.png"
+                  alt="Keerthi Nirmal Long Grain Matta rice bag"
+                  width={400}
+                  height={600}
+                  className="h-auto w-full object-contain drop-shadow-2xl"
+                  unoptimized
+                />
+              </div>
+            </div>
+
+            {/* Right green circle */}
+            <div
+              className="z-20 ml-4 hidden flex-shrink-0 flex-col items-center justify-center rounded-full bg-primary p-6 text-center text-primary-foreground md:ml-8 md:flex md:p-8"
+              style={{
+                width: "clamp(120px, 14vw, 180px)",
+                height: "clamp(120px, 14vw, 180px)",
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+                transitionDelay: "1.8s",
+              }}
+            >
+              <span className="text-[clamp(0.6rem,1vw,0.75rem)] font-bold uppercase tracking-wider">
+                Trusted
+              </span>
+              <span className="text-[clamp(1.5rem,2.5vw,2.5rem)] font-black leading-none">
+                50+
+              </span>
+              <span className="mt-1 text-[clamp(0.5rem,0.8vw,0.65rem)] leading-tight opacity-80">
+                Years of quality and tradition
+              </span>
             </div>
           </div>
         </div>
