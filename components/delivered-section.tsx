@@ -42,12 +42,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative flex h-svh min-h-[500px] items-center justify-center overflow-hidden bg-background px-6"
+        className="relative flex h-svh items-center justify-center overflow-hidden bg-background px-6 py-8"
       >
-        <div className="flex flex-col items-center gap-6 md:gap-8">
+        <div className="flex h-full max-h-[90vh] flex-col items-center justify-center gap-4 md:gap-6">
           {/* Heading */}
           <h2
-            className="relative z-10 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary"
+            className="relative z-10 text-center text-[clamp(1.8rem,6vw,5.5rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -60,9 +60,9 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packet image */}
+          {/* Rice packet image - constrained to remaining viewport space */}
           <div
-            className={`w-full max-w-[180px] transition-all duration-1000 ease-out md:max-w-[240px] lg:max-w-[300px] ${
+            className={`flex max-h-[50vh] w-full max-w-[180px] flex-1 items-center justify-center transition-all duration-1000 ease-out md:max-w-[220px] lg:max-w-[260px] ${
               isVisible
                 ? "translate-y-0 opacity-100 scale-100"
                 : "translate-y-16 opacity-0 scale-90"
@@ -74,7 +74,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               alt="Keerthi Nirmal Long Grain Matta rice bag"
               width={400}
               height={600}
-              className="h-auto w-full object-contain drop-shadow-2xl"
+              className="h-full max-h-full w-auto object-contain drop-shadow-2xl"
               unoptimized
             />
           </div>
