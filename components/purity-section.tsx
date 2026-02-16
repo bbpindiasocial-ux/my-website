@@ -80,6 +80,7 @@ function BenefitStat({
 export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, forwardedRef) {
   const localRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [fadeOut, setFadeOut] = useState(1)
 
   // Merge the forwarded ref and local ref
   const setRef = useCallback(
@@ -113,12 +114,47 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
     return () => observer.disconnect()
   }, [handleIntersection])
 
+  // Scroll-linked fade-out as user scrolls toward bottom of section
+  useEffect(() => {
+    let raf: number
+    function onScroll() {
+      if (raf) cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        const el = localRef.current
+        if (!el) return
+        const rect = el.getBoundingClientRect()
+        const viewH = window.innerHeight
+        // Start fading when section is 40% scrolled past, fully faded at 80%
+        const sectionScrolled = -rect.top / rect.height
+        if (sectionScrolled < 0.4) {
+          setFadeOut(1)
+        } else if (sectionScrolled > 0.8) {
+          setFadeOut(0)
+        } else {
+          setFadeOut(1 - (sectionScrolled - 0.4) / 0.4)
+        }
+      })
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    onScroll()
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <section
       ref={setRef}
       className="relative overflow-hidden bg-background px-6 py-16 md:px-12 md:py-24 lg:px-16 lg:py-32"
     >
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 lg:flex-row lg:items-start lg:gap-6 xl:gap-10">
+      <div
+        className="mx-auto flex max-w-7xl flex-col items-center gap-10 lg:flex-row lg:items-start lg:gap-6 xl:gap-10"
+        style={{
+          opacity: fadeOut,
+          transition: "opacity 0.1s ease-out",
+        }}
+      >
         {/* Left: Copy */}
         <div
           className={`flex-1 transition-all duration-700 ease-out ${

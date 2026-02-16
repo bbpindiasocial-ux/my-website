@@ -83,6 +83,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
                   : "inset(0 100% 0 0)",
                 transition:
                   "clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1)",
+                maskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
               }}
             >
               <span className="block">Delivered</span>
