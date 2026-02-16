@@ -42,13 +42,13 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative z-0 flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background pb-12 md:pb-16"
+        className="relative z-0 flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background pt-16 pb-12 md:pt-20 md:pb-16"
       >
         {/* Main content - heading + bags */}
         <div className="relative z-10 flex flex-col items-center px-4">
           {/* Heading */}
           <h2
-            className="relative z-30 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-8"
+            className="relative z-30 mb-6 text-center text-[clamp(1.8rem,6vw,5rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-8"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
