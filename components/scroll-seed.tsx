@@ -162,23 +162,18 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
             ? 1 - (progress - 1.0) / 0.3
             : 0
 
-  // Layer 3: Rice grain - transition image between sections
-  // Fades in 1.0-1.3, fades out 1.5-1.8
+  // Layer 3: Rice grain - transition image, fades in then fully fades out before delivered section
+  // Fades in 1.0-1.3, stays 1.3-1.6, fades out 1.6-1.9
   const riceGrainOpacity =
     progress < 1.0
       ? 0
       : progress < 1.3
         ? (progress - 1.0) / 0.3
-        : progress < 1.5
+        : progress < 1.6
           ? 1
-          : progress < 1.8
-            ? 1 - (progress - 1.5) / 0.3
+          : progress < 1.9
+            ? 1 - (progress - 1.6) / 0.3
             : 0
-
-  // Layer 4: Rice packet - final image in delivered section
-  // Fades in 1.5-1.8, stays visible
-  const ricePacketOpacity =
-    progress < 1.5 ? 0 : progress < 1.8 ? (progress - 1.5) / 0.3 : 1
 
   return (
     <div
@@ -244,23 +239,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         />
       </div>
 
-      {/* Layer 4: Red rice packet */}
-      <div
-        className="absolute inset-0"
-        style={{
-          opacity: ricePacketOpacity,
-          transition: "opacity 0.15s ease-out",
-        }}
-      >
-        <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
-          alt="Keerthi Nirmal Long Grain Matta rice bag"
-          width={400}
-          height={600}
-          className="h-auto w-full object-contain drop-shadow-2xl"
-          unoptimized
-        />
-      </div>
+
     </div>
   )
 }
