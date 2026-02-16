@@ -159,7 +159,6 @@ export const ProductsSection = forwardRef<HTMLElement>(
               It is like the seed put in the soil - the more one sows, the greater the harvest. We believe in giving back to the environment many folds than what we take from it.
             </p>
           </div>
-        </div>
       </section>
     )
   }
