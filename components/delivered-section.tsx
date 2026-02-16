@@ -60,16 +60,16 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packets */}
-          <div className="relative flex items-end gap-4 md:gap-8 lg:gap-12">
-            {/* Yellow bag - slides in from the left after red appears */}
+          {/* Rice packets - overlapping layout */}
+          <div className="relative flex items-end justify-center">
+            {/* Yellow bag - smaller, behind, slides in from left */}
             <div
-              className={`w-full max-w-[120px] transition-all duration-1000 ease-out md:max-w-[170px] lg:max-w-[220px] ${
+              className={`relative z-10 w-[100px] transition-all duration-1000 ease-out md:w-[150px] lg:w-[200px] ${
                 isVisible
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-24 opacity-0"
               }`}
-              style={{ transitionDelay: "1.4s" }}
+              style={{ transitionDelay: "1.4s", marginRight: "-30px" }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JAYA-RISE-5-KG.jpg-BK.jpg-removebg-preview-Ft6XzJgswLTJ8mfPVq8aHiaYuxUM3g.png"
@@ -81,9 +81,9 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               />
             </div>
 
-            {/* Red bag - center, appears first */}
+            {/* Red bag - larger, in front, appears first */}
             <div
-              className={`w-full max-w-[180px] transition-all duration-1000 ease-out md:max-w-[240px] lg:max-w-[300px] ${
+              className={`relative z-20 w-[150px] transition-all duration-1000 ease-out md:w-[220px] lg:w-[280px] ${
                 isVisible
                   ? "translate-y-0 opacity-100 scale-100"
                   : "translate-y-16 opacity-0 scale-90"
