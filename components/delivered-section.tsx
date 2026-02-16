@@ -62,7 +62,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
 
           {/* Rice packets */}
           <div className="relative flex items-end gap-4 md:gap-8 lg:gap-12">
-            {/* Blue bag - slides in from the left after red appears */}
+            {/* Yellow bag - slides in from the left after red appears */}
             <div
               className={`w-full max-w-[120px] transition-all duration-1000 ease-out md:max-w-[170px] lg:max-w-[220px] ${
                 isVisible
@@ -72,8 +72,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               style={{ transitionDelay: "1.4s" }}
             >
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/f-short-grain-matta-removebg-preview-hSher1R2aTxm9cZrk3iKVkPc3q4ZoP.png"
-                alt="Keerthi Nirmal Short Grain Matta rice bag"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JAYA-RISE-5-KG.jpg-BK.jpg-removebg-preview-Ft6XzJgswLTJ8mfPVq8aHiaYuxUM3g.png"
+                alt="Keerthi Nirmal Jaya Rice bag"
                 width={400}
                 height={600}
                 className="h-auto w-full object-contain drop-shadow-2xl"
