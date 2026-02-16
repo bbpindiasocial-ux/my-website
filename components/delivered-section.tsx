@@ -60,17 +60,22 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packets - overlapping layout, bottom-aligned */}
-          <div className="relative flex items-end">
-            {/* Yellow bag - ~70% of red bag size, tucked behind to the left */}
+          {/* Rice packets - overlapping with absolute positioning */}
+          <div
+            className="relative"
+            style={{
+              width: "clamp(280px, 40vw, 500px)",
+              height: "clamp(220px, 32vw, 420px)",
+            }}
+          >
+            {/* Yellow bag - behind red, bottom-aligned, left side */}
             <div
-              className={`relative z-10 transition-all duration-1000 ease-out ${
+              className={`absolute bottom-0 left-0 z-0 transition-all duration-1000 ease-out ${
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 transitionDelay: "1.4s",
-                width: "clamp(120px, 18vw, 230px)",
-                marginRight: "clamp(-30px, -4vw, -60px)",
+                width: "48%",
                 transform: isVisible ? "translateX(0)" : "translateX(-80px)",
               }}
             >
@@ -84,16 +89,16 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               />
             </div>
 
-            {/* Red bag - larger, in front, centered */}
+            {/* Red bag - in front, bottom-aligned, right side overlapping yellow */}
             <div
-              className={`relative z-20 transition-all duration-1000 ease-out ${
+              className={`absolute bottom-0 right-0 z-10 transition-all duration-1000 ease-out ${
                 isVisible
                   ? "translate-y-0 opacity-100 scale-100"
                   : "translate-y-16 opacity-0 scale-90"
               }`}
               style={{
                 transitionDelay: "0.6s",
-                width: "clamp(170px, 25vw, 320px)",
+                width: "68%",
               }}
             >
               <Image
