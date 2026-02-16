@@ -42,12 +42,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative flex h-svh min-h-[500px] items-center justify-center overflow-hidden bg-background px-6"
+        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background px-6"
       >
-        <div className="flex flex-col items-center gap-6 md:gap-8">
+        <div className="flex flex-col items-center">
           {/* Heading */}
           <h2
-            className="relative z-10 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary"
+            className="relative z-10 mb-6 text-center text-[clamp(2.5rem,9vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -60,16 +60,20 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packets - overlapping layout */}
+          {/* Rice packets - overlapping layout, bottom-aligned */}
           <div className="relative flex items-end justify-center">
-            {/* Yellow bag - smaller, behind, slides in from left */}
+            {/* Yellow bag - smaller, tucked behind to the left */}
             <div
-              className={`relative z-10 w-[100px] transition-all duration-1000 ease-out md:w-[150px] lg:w-[200px] ${
+              className={`relative z-10 transition-all duration-1000 ease-out ${
                 isVisible
                   ? "translate-x-0 opacity-100"
                   : "-translate-x-24 opacity-0"
               }`}
-              style={{ transitionDelay: "1.4s", marginRight: "-30px" }}
+              style={{
+                transitionDelay: "1.4s",
+                width: "clamp(120px, 18vw, 240px)",
+                marginRight: "clamp(-25px, -3vw, -40px)",
+              }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JAYA-RISE-5-KG.jpg-BK.jpg-removebg-preview-Ft6XzJgswLTJ8mfPVq8aHiaYuxUM3g.png"
@@ -81,14 +85,17 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               />
             </div>
 
-            {/* Red bag - larger, in front, appears first */}
+            {/* Red bag - larger, in front */}
             <div
-              className={`relative z-20 w-[150px] transition-all duration-1000 ease-out md:w-[220px] lg:w-[280px] ${
+              className={`relative z-20 transition-all duration-1000 ease-out ${
                 isVisible
                   ? "translate-y-0 opacity-100 scale-100"
                   : "translate-y-16 opacity-0 scale-90"
               }`}
-              style={{ transitionDelay: "0.6s" }}
+              style={{
+                transitionDelay: "0.6s",
+                width: "clamp(180px, 26vw, 340px)",
+              }}
             >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
