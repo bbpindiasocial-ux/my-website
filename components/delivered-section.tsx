@@ -61,18 +61,16 @@ export const DeliveredSection = forwardRef<HTMLElement>(
           </h2>
 
           {/* Rice packets - overlapping layout, bottom-aligned */}
-          <div className="relative flex items-end justify-center">
-            {/* Yellow bag - smaller, tucked behind to the left, enters from negative X (left) */}
+          <div className="relative flex items-end">
+            {/* Yellow bag - ~70% of red bag size, tucked behind to the left */}
             <div
               className={`relative z-10 transition-all duration-1000 ease-out ${
-                isVisible
-                  ? "opacity-100"
-                  : "opacity-0"
+                isVisible ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 transitionDelay: "1.4s",
-                width: "clamp(100px, 15vw, 200px)",
-                marginRight: "clamp(-25px, -3vw, -40px)",
+                width: "clamp(120px, 18vw, 230px)",
+                marginRight: "clamp(-30px, -4vw, -60px)",
                 transform: isVisible ? "translateX(0)" : "translateX(-80px)",
               }}
             >
@@ -81,12 +79,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
                 alt="Keerthi Nirmal Jaya Rice bag"
                 width={400}
                 height={600}
-                className="h-auto w-full object-contain drop-shadow-2xl"
+                className="h-auto w-full object-contain drop-shadow-xl"
                 unoptimized
               />
             </div>
 
-            {/* Red bag - larger, in front */}
+            {/* Red bag - larger, in front, centered */}
             <div
               className={`relative z-20 transition-all duration-1000 ease-out ${
                 isVisible
@@ -95,7 +93,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               }`}
               style={{
                 transitionDelay: "0.6s",
-                width: "clamp(150px, 22vw, 280px)",
+                width: "clamp(170px, 25vw, 320px)",
               }}
             >
               <Image
