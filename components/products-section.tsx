@@ -74,25 +74,21 @@ export const ProductsSection = forwardRef<HTMLElement>(
     }, [handleIntersection])
 
     return (
-      <section ref={setRef} className="relative flex h-svh min-h-[600px] flex-col overflow-hidden bg-background">
-        {/* Top half - green background with heading */}
-        <div className="relative flex shrink-0 items-center justify-center bg-primary px-6" style={{ height: "35%" }}>
-          <h2
-            className="text-center text-[clamp(1.8rem,6vw,5rem)] font-black uppercase italic leading-[0.9] tracking-tight text-primary-foreground"
-            style={{
-              clipPath: isVisible ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
-              transition: "clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1)",
-            }}
-          >
-            <span className="block">Every Grain Carries</span>
-            <span className="block">The Pride of Hard Work</span>
-          </h2>
-        </div>
+      <section ref={setRef} className="relative flex h-svh min-h-[600px] flex-col items-center justify-center overflow-hidden bg-background px-4">
+        {/* Heading */}
+        <h2
+          className="mb-8 text-center text-[clamp(1.4rem,4vw,3.5rem)] font-black uppercase italic leading-[0.9] tracking-tight text-primary md:mb-12"
+          style={{
+            clipPath: isVisible ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+            transition: "clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1)",
+          }}
+        >
+          <span className="block">Every Grain Carries</span>
+          <span className="block">The Pride of Hard Work</span>
+        </h2>
 
-        {/* Bottom half - cream background with products overlapping boundary + text */}
-        <div className="relative flex flex-1 flex-col items-center bg-background">
-          {/* Products row - pulled up to overlap green area */}
-          <div className="relative -mt-12 w-full px-4 md:-mt-16 lg:-mt-20">
+        {/* Products row */}
+        <div className="w-full">
             <div className="mx-auto flex max-w-5xl items-end justify-center gap-2 md:gap-4 lg:gap-6">
               {products.map((product, i) => (
                 <div
@@ -138,9 +134,9 @@ export const ProductsSection = forwardRef<HTMLElement>(
           </div>
 
           {/* Bottom text - giving back */}
-          <div className="flex flex-1 flex-col items-center justify-center px-6">
+          <div className="mt-8 flex flex-col items-center px-6 md:mt-12">
             <h3
-              className="text-balance text-center text-[clamp(1.4rem,4.5vw,3.5rem)] font-black uppercase italic leading-[0.95] tracking-tight text-primary"
+              className="text-balance text-center text-[clamp(1.2rem,3.5vw,2.8rem)] font-black uppercase italic leading-[0.95] tracking-tight text-primary"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(20px)",
