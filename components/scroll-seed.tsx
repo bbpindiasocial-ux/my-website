@@ -121,9 +121,9 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   const purityCenterX = purityRect.left + purityRect.width * 0.42
   const purityCenterY = purityRect.top + purityRect.height * 0.2
 
-  // Phase 2 end: center of delivered section
+  // Phase 2 end: centered below text in delivered section
   const endX = deliveredRect.left + deliveredRect.width / 2 - seedWidth / 2
-  const endY = deliveredRect.top + deliveredRect.height * 0.3 - (seedWidth * 1.3) / 2
+  const endY = deliveredRect.top + deliveredRect.height * 0.55 - (seedWidth * 1.3) / 2
 
   let x: number, y: number, scale: number, rotate: number
 
