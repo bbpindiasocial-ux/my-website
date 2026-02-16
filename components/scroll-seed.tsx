@@ -150,30 +150,28 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     progress < 0.3 ? 1 : progress < 0.6 ? 1 - (progress - 0.3) / 0.3 : 0
 
   // Layer 2: Cardamom (frame-40) - the purity section center image
-  // Fades in 0.3-0.6, stays visible through purity, fades out 1.0-1.3
+  // Fades in 0.3-0.6, stays visible through purity, fades out 0.9-1.15
   const cardamomOpacity =
     progress < 0.3
       ? 0
       : progress < 0.6
         ? (progress - 0.3) / 0.3
-        : progress < 1.0
+        : progress < 0.9
           ? 1
-          : progress < 1.3
-            ? 1 - (progress - 1.0) / 0.3
+          : progress < 1.15
+            ? 1 - (progress - 0.9) / 0.25
             : 0
 
-  // Layer 3: Rice grain - transition image, fades in then fully fades out before delivered section
-  // Fades in 1.0-1.3, stays 1.3-1.6, fades out 1.6-1.9
+  // Layer 3: Rice grain - transition image, fully gone before delivered section
+  // Fades in 0.9-1.15, fades out 1.15-1.4
   const riceGrainOpacity =
-    progress < 1.0
+    progress < 0.9
       ? 0
-      : progress < 1.3
-        ? (progress - 1.0) / 0.3
-        : progress < 1.6
-          ? 1
-          : progress < 1.9
-            ? 1 - (progress - 1.6) / 0.3
-            : 0
+      : progress < 1.15
+        ? (progress - 0.9) / 0.25
+        : progress < 1.4
+          ? 1 - (progress - 1.15) / 0.25
+          : 0
 
   return (
     <div
