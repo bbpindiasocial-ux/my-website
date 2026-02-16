@@ -154,6 +154,7 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
 
         {/* Center: Placeholder space for the scroll-linked floating image */}
         <div
+          data-seed-placeholder
           className="hidden w-full max-w-[240px] flex-shrink-0 md:max-w-[280px] lg:block lg:max-w-[300px] xl:max-w-[340px]"
           aria-hidden="true"
         >
