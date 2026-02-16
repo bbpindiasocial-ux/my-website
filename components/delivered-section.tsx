@@ -33,7 +33,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
       const el = localRef.current
       if (!el) return
       const observer = new IntersectionObserver(handleIntersection, {
-        threshold: 0.15,
+        threshold: 0.75,
       })
       observer.observe(el)
       return () => observer.disconnect()
