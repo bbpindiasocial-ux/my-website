@@ -60,23 +60,45 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <span className="block">With Precision</span>
           </h2>
 
-          {/* Rice packet image */}
-          <div
-            className={`w-full max-w-[180px] transition-all duration-1000 ease-out md:max-w-[240px] lg:max-w-[300px] ${
-              isVisible
-                ? "translate-y-0 opacity-100 scale-100"
-                : "translate-y-16 opacity-0 scale-90"
-            }`}
-            style={{ transitionDelay: "0.6s" }}
-          >
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
-              alt="Keerthi Nirmal Long Grain Matta rice bag"
-              width={400}
-              height={600}
-              className="h-auto w-full object-contain drop-shadow-2xl"
-              unoptimized
-            />
+          {/* Rice packets */}
+          <div className="relative flex items-end gap-4 md:gap-8 lg:gap-12">
+            {/* Blue bag - slides in from the left after red appears */}
+            <div
+              className={`w-full max-w-[120px] transition-all duration-1000 ease-out md:max-w-[170px] lg:max-w-[220px] ${
+                isVisible
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-24 opacity-0"
+              }`}
+              style={{ transitionDelay: "1.4s" }}
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/f-short-grain-matta-removebg-preview-hSher1R2aTxm9cZrk3iKVkPc3q4ZoP.png"
+                alt="Keerthi Nirmal Short Grain Matta rice bag"
+                width={400}
+                height={600}
+                className="h-auto w-full object-contain drop-shadow-2xl"
+                unoptimized
+              />
+            </div>
+
+            {/* Red bag - center, appears first */}
+            <div
+              className={`w-full max-w-[180px] transition-all duration-1000 ease-out md:max-w-[240px] lg:max-w-[300px] ${
+                isVisible
+                  ? "translate-y-0 opacity-100 scale-100"
+                  : "translate-y-16 opacity-0 scale-90"
+              }`}
+              style={{ transitionDelay: "0.6s" }}
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
+                alt="Keerthi Nirmal Long Grain Matta rice bag"
+                width={400}
+                height={600}
+                className="h-auto w-full object-contain drop-shadow-2xl"
+                unoptimized
+              />
+            </div>
           </div>
         </div>
       </section>
