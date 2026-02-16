@@ -62,17 +62,18 @@ export const DeliveredSection = forwardRef<HTMLElement>(
 
           {/* Rice packets - overlapping layout, bottom-aligned */}
           <div className="relative flex items-end justify-center">
-            {/* Yellow bag - smaller, tucked behind to the left */}
+            {/* Yellow bag - smaller, tucked behind to the left, enters from negative X (left) */}
             <div
               className={`relative z-10 transition-all duration-1000 ease-out ${
                 isVisible
-                  ? "translate-x-0 opacity-100"
-                  : "-translate-x-24 opacity-0"
+                  ? "opacity-100"
+                  : "opacity-0"
               }`}
               style={{
                 transitionDelay: "1.4s",
                 width: "clamp(120px, 18vw, 240px)",
                 marginRight: "clamp(-25px, -3vw, -40px)",
+                transform: isVisible ? "translateX(0)" : "translateX(-80px)",
               }}
             >
               <Image
