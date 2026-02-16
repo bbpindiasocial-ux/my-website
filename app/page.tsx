@@ -20,7 +20,7 @@ export default function Page() {
       <HeroSection ref={heroRef} />
       <PuritySection ref={purityRef} />
       <DeliveredSection ref={deliveredRef} />
-      <ScrollSeed heroRef={heroRef} purityRef={purityRef} deliveredRef={deliveredRef} />
+      <ScrollSeed heroRef={heroRef} purityRef={purityRef} />
     </main>
   )
 }
