@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback, forwardRef } from "react"
 import { ArrowRight } from "lucide-react"
-import Image from "next/image"
+
 
 function useCountUp(target: number, duration: number, isVisible: boolean, decimals = 0) {
   const [value, setValue] = useState(0)
@@ -189,23 +189,12 @@ export const PuritySection = forwardRef<HTMLElement>(function PuritySection(_, f
           </a>
         </div>
 
-        {/* Center: Red rice bag image */}
+        {/* Center: Placeholder space for the scroll-linked floating image */}
         <div
-          className={`hidden w-full max-w-[240px] flex-shrink-0 md:max-w-[280px] lg:flex lg:max-w-[300px] xl:max-w-[340px] items-center justify-center transition-all duration-1000 ease-out ${
-            isVisible
-              ? "translate-y-0 opacity-100 scale-100"
-              : "translate-y-12 opacity-0 scale-90"
-          }`}
-          style={{ transitionDelay: "0.5s" }}
+          className="hidden w-full max-w-[240px] flex-shrink-0 md:max-w-[280px] lg:block lg:max-w-[300px] xl:max-w-[340px]"
+          aria-hidden="true"
         >
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_114000-removebg-preview-removebg-preview-IWp3MwPf80dh0ZAVHMAXOie0A79JqQ.png"
-            alt="Keerthi Nirmal Long Grain Matta rice bag"
-            width={400}
-            height={600}
-            className="h-auto w-full object-contain drop-shadow-2xl"
-            unoptimized
-          />
+          <div className="aspect-[3/4]" />
         </div>
 
         {/* Right: Benefits */}

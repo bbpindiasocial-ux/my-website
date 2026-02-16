@@ -112,11 +112,11 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         width: seedWidth,
       }}
     >
-      {/* Seed image - visible 0-40%, fades out 40-60% */}
+      {/* Seed image */}
       <div
         style={{
-          opacity: progress < 0.4 ? 1 : Math.max(0, 1 - (progress - 0.4) / 0.2),
-          transition: "opacity 0.2s ease-out",
+          opacity: progress < 0.4 ? 1 : Math.max(0, 1 - (progress - 0.4) / 0.4),
+          transition: "opacity 0.3s ease-out",
         }}
       >
         <Image
@@ -130,17 +130,12 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         />
       </div>
 
-      {/* Cardamom image - fades in 35-55%, fades out 55-75% */}
+      {/* Cardamom image */}
       <div
         className="absolute inset-0"
         style={{
-          opacity:
-            progress < 0.35
-              ? 0
-              : progress < 0.55
-                ? Math.min(1, (progress - 0.35) / 0.2)
-                : Math.max(0, 1 - (progress - 0.55) / 0.2),
-          transition: "opacity 0.2s ease-out",
+          opacity: progress < 0.35 ? 0 : Math.min(1, (progress - 0.35) / 0.4),
+          transition: "opacity 0.3s ease-out",
         }}
       >
         <Image
