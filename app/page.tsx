@@ -6,6 +6,7 @@ import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
 import { PuritySection } from "@/components/purity-section"
 import { DeliveredSection } from "@/components/delivered-section"
+import { ProductsSection } from "@/components/products-section"
 import { ScrollSeed } from "@/components/scroll-seed"
 
 export default function Page() {
@@ -20,6 +21,7 @@ export default function Page() {
       <HeroSection ref={heroRef} />
       <PuritySection ref={purityRef} />
       <DeliveredSection ref={deliveredRef} />
+      <ProductsSection />
       <ScrollSeed heroRef={heroRef} purityRef={purityRef} deliveredRef={deliveredRef} />
     </main>
   )
