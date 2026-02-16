@@ -191,8 +191,8 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-3-removebg-preview%201-iJ06KjM6d4IPII6wZrIytjtvwbh55k.png"
-          alt="Premium grain seed"
+          src="/images/grain-03.jpg"
+          alt="Premium rice grain"
           width={400}
           height={600}
           className="h-auto w-full object-contain drop-shadow-2xl"
