@@ -72,6 +72,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         const scrollY = window.scrollY
         const viewH = window.innerHeight
 
+        // The full animation range: from hero top to delivered section midpoint
         const animStart = heroRect.top
         const purityMid = purityRect.top + purityRect.height * 0.5 - viewH * 0.15
         const deliveredEnd = deliveredRect.top > 0
@@ -101,13 +102,13 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
   /* ---- Position keypoints ---- */
 
-  // Phase 1: Hero start position
+  // Phase 1 endpoint: Hero position (seed sits here)
   const startX = heroRect.left + heroRect.width * 0.04
   const startY = heroRect.top + 20
   const startScale = 1
   const startRotate = -25
 
-  // Phase 1 endpoint: Purity center
+  // Phase 1 mid-point: Purity center
   const purityCenterX = purityRect.left + purityRect.width * 0.42
   const purityCenterY = purityRect.top + purityRect.height * 0.2
   const midScale = 0.85
@@ -129,8 +130,10 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
   let x: number, y: number, scale: number, rotate: number
 
+  // progress 0 -> 0.5: Hero to Purity (only position changes, seed image stays)
+  // progress 0.5 -> 1.0: Purity to Delivered (position + image crossfades)
   if (progress <= 0.5) {
-    // Phase 1: Hero -> Purity
+    // Phase 1: Hero -> Purity (position movement only)
     const t = easeInOutQuad(progress / 0.5)
     x = startX + (purityCenterX - startX) * t
     y = startY + (purityCenterY - startY) * t
@@ -145,44 +148,45 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     rotate = midRotate + (endRotate - midRotate) * t
   }
 
-  /* ---- Image crossfade: 4 images ---- */
-  // Image 1: Seed (frame-3) — visible at start, fades out early
-  // Image 2: Cardamom (frame-40) — fades in during Hero->Purity
-  // Image 3: Rice husk (user provided) — fades in when scrolling from section 2
-  // Image 4: Red bag (frame-89) — fades in approaching section 3 landing
+  /* ---- Image crossfade ---- */
+  // PHASE 1 (progress 0 - 0.5): Only the seed is visible. No crossfade at all.
+  // PHASE 2 (progress 0.5 - 1.0): Seed -> Cardamom -> Rice Husk -> Red Bag
+  //
+  // Phase 2 sub-progress (p2 goes from 0 to 1 within progress 0.5 - 1.0)
+  const p2 = progress <= 0.5 ? 0 : (progress - 0.5) / 0.5
 
-  // Seed: visible 0-0.2, fades out 0.2-0.35
+  // Image 1: Seed - fully visible during Phase 1, fades out at start of Phase 2
   const seedOpacity =
-    progress < 0.2 ? 1
-    : progress < 0.35 ? 1 - (progress - 0.2) / 0.15
+    p2 <= 0 ? 1                           // Phase 1: fully visible
+    : p2 < 0.2 ? 1 - p2 / 0.2            // Phase 2: fades out 0-20%
     : 0
 
-  // Cardamom: fades in 0.15-0.3, visible 0.3-0.5, fades out 0.5-0.6
+  // Image 2: Cardamom - fades in at start of Phase 2, fades out mid Phase 2
   const cardamomOpacity =
-    progress < 0.15 ? 0
-    : progress < 0.3 ? (progress - 0.15) / 0.15
-    : progress < 0.5 ? 1
-    : progress < 0.6 ? 1 - (progress - 0.5) / 0.1
+    p2 < 0.05 ? 0
+    : p2 < 0.2 ? (p2 - 0.05) / 0.15      // fades in 5-20%
+    : p2 < 0.4 ? 1                         // visible 20-40%
+    : p2 < 0.55 ? 1 - (p2 - 0.4) / 0.15   // fades out 40-55%
     : 0
 
-  // Rice husk: fades in 0.48-0.6, visible 0.6-0.75, fades out 0.75-0.85
+  // Image 3: Rice husk - appears mid Phase 2
   const riceHuskOpacity =
-    progress < 0.48 ? 0
-    : progress < 0.6 ? (progress - 0.48) / 0.12
-    : progress < 0.75 ? 1
-    : progress < 0.85 ? 1 - (progress - 0.75) / 0.1
+    p2 < 0.4 ? 0
+    : p2 < 0.55 ? (p2 - 0.4) / 0.15       // fades in 40-55%
+    : p2 < 0.7 ? 1                          // visible 55-70%
+    : p2 < 0.85 ? 1 - (p2 - 0.7) / 0.15    // fades out 70-85%
     : 0
 
-  // Red bag: fades in 0.78-0.9, visible 0.9-0.96, fades out 0.96-1.0
+  // Image 4: Red bag - appears at end of Phase 2
   const redBagOpacity =
-    progress < 0.78 ? 0
-    : progress < 0.9 ? (progress - 0.78) / 0.12
-    : progress < 0.96 ? 1
-    : 1 - (progress - 0.96) / 0.04
+    p2 < 0.7 ? 0
+    : p2 < 0.85 ? (p2 - 0.7) / 0.15        // fades in 70-85%
+    : p2 < 0.95 ? 1                          // visible 85-95%
+    : 1 - (p2 - 0.95) / 0.05                // quick fade at landing
 
-  // Width: grow slightly for the bag image at the end
-  const currentWidth = progress > 0.78
-    ? seedWidth * (1 + (progress - 0.78) * 0.7)
+  // Width: scale up the container a bit for the bag at the end
+  const currentWidth = p2 > 0.7
+    ? seedWidth * (1 + (p2 - 0.7) * 0.8)
     : seedWidth
 
   // Hide entirely once fully landed
@@ -201,10 +205,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       }}
     >
       {/* Image 1: Seed */}
-      <div
-        className="absolute inset-0"
-        style={{ opacity: seedOpacity }}
-      >
+      <div className="absolute inset-0" style={{ opacity: seedOpacity }}>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-3-removebg-preview%201-iJ06KjM6d4IPII6wZrIytjtvwbh55k.png"
           alt="Premium grain seed"
@@ -217,10 +218,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       </div>
 
       {/* Image 2: Cardamom */}
-      <div
-        className="absolute inset-0"
-        style={{ opacity: cardamomOpacity }}
-      >
+      <div className="absolute inset-0" style={{ opacity: cardamomOpacity }}>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-40-removebg-preview%201-4we2BvDPWE5vYKekYkG0M1YrAMuwGH.png"
           alt="Cardamom pod"
@@ -231,11 +229,8 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         />
       </div>
 
-      {/* Image 3: Rice husk (user-provided) */}
-      <div
-        className="absolute inset-0"
-        style={{ opacity: riceHuskOpacity }}
-      >
+      {/* Image 3: Rice husk */}
+      <div className="absolute inset-0" style={{ opacity: riceHuskOpacity }}>
         <Image
           src="/images/rice-husk.png"
           alt="Rice grain husk"
@@ -247,10 +242,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       </div>
 
       {/* Image 4: Red bag */}
-      <div
-        className="absolute inset-0"
-        style={{ opacity: redBagOpacity }}
-      >
+      <div className="absolute inset-0" style={{ opacity: redBagOpacity }}>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-89-nTsRrpdjrkJrI5ZzXRkp20Bukg02rh.png"
           alt="Keerthi Nirmal Long Grain Matta red bag"
