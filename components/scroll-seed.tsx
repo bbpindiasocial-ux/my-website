@@ -48,20 +48,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       width: dRect.width,
     })
 
-    // Find the placeholder in purity section
-    const placeholder = purityRef.current.querySelector("[data-seed-placeholder]")
-    if (placeholder) {
-      const phRect = placeholder.getBoundingClientRect()
-      setPlaceholderCenter({
-        x: phRect.left + phRect.width / 2,
-        y: phRect.top + scrollY + phRect.height / 2,
-      })
-    } else {
-      setPlaceholderCenter({
-        x: pRect.left + pRect.width / 2,
-        y: pRect.top + scrollY + pRect.height * 0.4,
-      })
-    }
+    // Estimate center of purity section for the floating image
+    setPlaceholderCenter({
+      x: pRect.left + pRect.width / 2,
+      y: pRect.top + scrollY + pRect.height * 0.4,
+    })
 
     const w = window.innerWidth
     setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
