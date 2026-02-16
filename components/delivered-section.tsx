@@ -50,8 +50,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
           style={{
             width: "clamp(220px, 20vw, 320px)",
             height: "clamp(220px, 20vw, 320px)",
-            bottom: "10%",
-            left: "5%",
+            bottom: "8%",
+            left: "8%",
             borderRadius: "62% 38% 46% 54% / 60% 44% 56% 40%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0) rotate(-5deg)" : "translateY(30px) rotate(-5deg)",
@@ -92,8 +92,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
           style={{
             width: "clamp(220px, 20vw, 320px)",
             height: "clamp(220px, 20vw, 320px)",
-            top: "18%",
-            right: "5%",
+            top: "15%",
+            right: "8%",
             borderRadius: "44% 56% 38% 62% / 52% 60% 40% 48%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0) rotate(5deg)" : "translateY(30px) rotate(5deg)",
@@ -157,8 +157,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <div
               className="absolute bottom-0 z-[2]"
               style={{
-                width: "42%",
-                left: "2%",
+                width: "48%",
+                left: "0%",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(-80px)",
                 transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
@@ -179,8 +179,8 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             <div
               className="absolute bottom-0 z-[2]"
               style={{
-                width: "42%",
-                right: "2%",
+                width: "48%",
+                right: "0%",
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateX(0)" : "translateX(80px)",
                 transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
