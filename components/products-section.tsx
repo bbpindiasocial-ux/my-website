@@ -74,7 +74,7 @@ export const ProductsSection = forwardRef<HTMLElement>(
     }, [handleIntersection])
 
     return (
-      <section ref={setRef} className="relative flex h-svh min-h-[600px] flex-col items-center justify-center overflow-hidden bg-background px-4 py-16 md:py-20 lg:py-24">
+      <section ref={setRef} className="relative z-10 flex min-h-svh flex-col items-center justify-center overflow-hidden bg-background px-4 py-16 md:py-20 lg:py-24">
         {/* Heading */}
         <h2
           className="mb-8 text-center text-[clamp(1.4rem,4vw,3.5rem)] font-black uppercase italic leading-[0.9] tracking-tight text-primary md:mb-12"

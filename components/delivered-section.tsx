@@ -42,7 +42,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background"
+        className="relative z-0 flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background pb-12 md:pb-16"
       >
         {/* Main content - heading + bags */}
         <div className="relative z-10 flex flex-col items-center px-4">
