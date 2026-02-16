@@ -42,12 +42,12 @@ export const DeliveredSection = forwardRef<HTMLElement>(
     return (
       <section
         ref={setRef}
-        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background px-6"
+        className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background px-6 py-10"
       >
-        <div className="flex flex-col items-center">
+        <div className="flex max-h-full flex-col items-center justify-center">
           {/* Heading */}
           <h2
-            className="relative z-10 mb-6 text-center text-[clamp(2.5rem,9vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
+            className="relative z-10 mb-6 text-center text-[clamp(2rem,8vw,7rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary md:mb-10"
             style={{
               clipPath: isVisible
                 ? "inset(0 0% 0 0)"
@@ -71,7 +71,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               }`}
               style={{
                 transitionDelay: "1.4s",
-                width: "clamp(120px, 18vw, 240px)",
+                width: "clamp(100px, 15vw, 200px)",
                 marginRight: "clamp(-25px, -3vw, -40px)",
                 transform: isVisible ? "translateX(0)" : "translateX(-80px)",
               }}
@@ -95,7 +95,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
               }`}
               style={{
                 transitionDelay: "0.6s",
-                width: "clamp(180px, 26vw, 340px)",
+                width: "clamp(150px, 22vw, 280px)",
               }}
             >
               <Image
