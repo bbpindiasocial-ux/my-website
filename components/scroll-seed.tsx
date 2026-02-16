@@ -13,7 +13,6 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
   const [progress, setProgress] = useState(0)
   const [heroRect, setHeroRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [purityRect, setPurityRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
-  const [placeholderRect, setPlaceholderRect] = useState({ centerX: 0, centerY: 0, width: 0, height: 0 })
   const [isReady, setIsReady] = useState(false)
   const [seedWidth, setSeedWidth] = useState(340)
   const rafRef = useRef<number>(0)
@@ -35,26 +34,6 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
       height: pRect.height,
       width: pRect.width,
     })
-
-    // Find the placeholder div inside purity section to get exact center
-    const placeholder = purityRef.current.querySelector("[data-seed-placeholder]")
-    if (placeholder) {
-      const phRect = placeholder.getBoundingClientRect()
-      setPlaceholderRect({
-        centerX: phRect.left + phRect.width / 2,
-        centerY: phRect.top + scrollY + phRect.height / 2,
-        width: phRect.width,
-        height: phRect.height,
-      })
-    } else {
-      // Fallback: estimate center of the purity section
-      setPlaceholderRect({
-        centerX: pRect.left + pRect.width / 2,
-        centerY: pRect.top + scrollY + pRect.height / 2,
-        width: 300,
-        height: 400,
-      })
-    }
 
     const w = window.innerWidth
     setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
@@ -82,7 +61,7 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
         const viewH = window.innerHeight
 
         const animStart = heroRect.top
-        const animEnd = purityRect.top + purityRect.height * 0.55 - viewH * 0.1
+        const animEnd = purityRect.top + purityRect.height * 0.5 - viewH * 0.15
 
         if (animEnd <= animStart) {
           setProgress(0)
@@ -109,18 +88,17 @@ export function ScrollSeed({ heroRef, purityRef }: ScrollSeedProps) {
   const startScale = 1
   const startRotate = -25
 
-  // End position: center of the placeholder between the two boxes
-  const endX = placeholderRect.centerX - seedWidth / 2
-  const endY = placeholderRect.centerY - (seedWidth * 1.33) / 2 // aspect ratio ~3:4
-  const endScale = 0.9
-  const endRotate = 0
+  const purityCenterX = purityRect.left + purityRect.width * 0.42
+  const purityCenterY = purityRect.top + purityRect.height * 0.2
+  const endScale = 0.85
+  const endRotate = -5
 
   const eased = progress < 0.5
     ? 2 * progress * progress
     : 1 - Math.pow(-2 * progress + 2, 2) / 2
 
-  const x = startX + (endX - startX) * eased
-  const y = startY + (endY - startY) * eased
+  const x = startX + (purityCenterX - startX) * eased
+  const y = startY + (purityCenterY - startY) * eased
   const scale = startScale + (endScale - startScale) * eased
   const rotate = startRotate + (endRotate - startRotate) * eased
 
