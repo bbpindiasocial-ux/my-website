@@ -48,7 +48,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     }
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
+    setSeedWidth(w >= 1024 ? 300 : w >= 768 ? 240 : 160)
 
     setIsReady(true)
   }, [heroRef, purityRef, deliveredRef])
@@ -103,10 +103,10 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   /* ---- Position keypoints ---- */
 
   // Phase 1 endpoint: Hero position (seed sits here)
-  const startX = heroRect.left + heroRect.width * 0.20
-  const startY = heroRect.top + heroRect.height * 0.02
+  const startX = heroRect.left + heroRect.width * 0.13
+  const startY = heroRect.top + heroRect.height * 0.15
   const startScale = 1
-  const startRotate = -30
+  const startRotate = -75
 
   // Phase 1 mid-point: Purity center
   const purityCenterX = purityRect.left + purityRect.width * 0.42
@@ -197,10 +197,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       ref={seedRef}
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
-        transform: `translate3d(${x - currentWidth / 2}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
+        transform: `translate3d(${x - currentWidth / 2}px, ${y - currentWidth * 0.75}px, 0) rotate(${rotate}deg) scale(${scale})`,
         willChange: "transform, opacity",
         width: currentWidth,
         opacity: containerOpacity,
+        filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.15))",
         transition: "opacity 0.2s ease-out",
       }}
     >
