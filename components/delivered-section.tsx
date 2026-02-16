@@ -44,14 +44,14 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         ref={setRef}
         className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background"
       >
-        {/* Left green blob - lower-left, BEHIND bags, edge-cropped */}
+        {/* Left green blob - overlaps yellow bag, edge-cropped */}
         <div
           className="absolute hidden bg-primary md:block"
           style={{
-            width: "clamp(300px, 28vw, 420px)",
-            height: "clamp(300px, 28vw, 420px)",
-            bottom: "2%",
-            left: "-6%",
+            width: "clamp(220px, 20vw, 320px)",
+            height: "clamp(220px, 20vw, 320px)",
+            bottom: "10%",
+            left: "5%",
             borderRadius: "62% 38% 46% 54% / 60% 44% 56% 40%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0) rotate(-5deg)" : "translateY(30px) rotate(-5deg)",
@@ -60,11 +60,11 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             zIndex: 1,
           }}
         >
-          <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center text-primary-foreground lg:p-10">
+          <div className="flex h-full w-full flex-col items-center justify-center p-5 text-center text-primary-foreground lg:p-7">
             <svg
-              className="mb-2"
-              width="32"
-              height="32"
+              className="mb-1"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -74,26 +74,26 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             >
               <path d="M12 2v8m0 0c-2 0-4-1-6-3m6 3c2 0 4-1 6-3M12 10v12M8 22h8" />
             </svg>
-            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+            <span className="text-[clamp(0.8rem,1.2vw,1.1rem)] font-black uppercase leading-tight">
               Long Grain
             </span>
-            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+            <span className="text-[clamp(0.8rem,1.2vw,1.1rem)] font-black uppercase leading-tight">
               Matta Rice
             </span>
-            <p className="mt-2 max-w-[85%] text-[clamp(0.55rem,0.8vw,0.7rem)] leading-snug opacity-85">
-              Our meticulous sourcing process ensures the highest quality grain, selecting only from trusted farms across South India. {"That's"} how Keerthi Nirmal became the best rice brand in Kerala.
+            <p className="mt-1 max-w-[90%] text-[clamp(0.45rem,0.65vw,0.6rem)] leading-snug opacity-85">
+              Our meticulous sourcing process ensures the highest quality grain from trusted farms across South India.
             </p>
           </div>
         </div>
 
-        {/* Right green blob - upper-right, BEHIND bags, edge-cropped */}
+        {/* Right green blob - overlaps blue bag, edge-cropped */}
         <div
           className="absolute hidden bg-primary md:block"
           style={{
-            width: "clamp(300px, 28vw, 420px)",
-            height: "clamp(300px, 28vw, 420px)",
-            top: "8%",
-            right: "-6%",
+            width: "clamp(220px, 20vw, 320px)",
+            height: "clamp(220px, 20vw, 320px)",
+            top: "18%",
+            right: "5%",
             borderRadius: "44% 56% 38% 62% / 52% 60% 40% 48%",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0) rotate(5deg)" : "translateY(30px) rotate(5deg)",
@@ -102,11 +102,11 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             zIndex: 1,
           }}
         >
-          <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center text-primary-foreground lg:p-10">
+          <div className="flex h-full w-full flex-col items-center justify-center p-5 text-center text-primary-foreground lg:p-7">
             <svg
-              className="mb-2"
-              width="32"
-              height="32"
+              className="mb-1"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -116,14 +116,14 @@ export const DeliveredSection = forwardRef<HTMLElement>(
             >
               <path d="M12 2v8m0 0c-2 0-4-1-6-3m6 3c2 0 4-1 6-3M12 10v12M8 22h8" />
             </svg>
-            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+            <span className="text-[clamp(0.8rem,1.2vw,1.1rem)] font-black uppercase leading-tight">
               Long Grain
             </span>
-            <span className="text-[clamp(1rem,1.6vw,1.4rem)] font-black uppercase leading-tight">
+            <span className="text-[clamp(0.8rem,1.2vw,1.1rem)] font-black uppercase leading-tight">
               Matta Rice
             </span>
-            <p className="mt-2 max-w-[85%] text-[clamp(0.55rem,0.8vw,0.7rem)] leading-snug opacity-85">
-              Our meticulous sourcing process ensures the highest quality grain, selecting only from trusted farms across South India. {"That's"} how Keerthi Nirmal became the best rice brand in Kerala.
+            <p className="mt-1 max-w-[90%] text-[clamp(0.45rem,0.65vw,0.6rem)] leading-snug opacity-85">
+              Our meticulous sourcing process ensures the highest quality grain from trusted farms across South India.
             </p>
           </div>
         </div>
