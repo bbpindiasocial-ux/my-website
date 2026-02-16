@@ -44,16 +44,17 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         ref={setRef}
         className="relative flex h-svh min-h-[600px] items-center justify-center overflow-hidden bg-background"
       >
-        {/* Left green circle - lower-left, BEHIND bags, edge-cropped */}
+        {/* Left green blob - lower-left, BEHIND bags, edge-cropped */}
         <div
-          className="absolute hidden rounded-full bg-primary md:block"
+          className="absolute hidden bg-primary md:block"
           style={{
             width: "clamp(300px, 28vw, 420px)",
             height: "clamp(300px, 28vw, 420px)",
             bottom: "2%",
             left: "-6%",
+            borderRadius: "62% 38% 46% 54% / 60% 44% 56% 40%",
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(30px)",
+            transform: isVisible ? "translateY(0) rotate(-5deg)" : "translateY(30px) rotate(-5deg)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "1.8s",
             zIndex: 1,
@@ -85,16 +86,17 @@ export const DeliveredSection = forwardRef<HTMLElement>(
           </div>
         </div>
 
-        {/* Right green circle - upper-right, BEHIND bags, edge-cropped */}
+        {/* Right green blob - upper-right, BEHIND bags, edge-cropped */}
         <div
-          className="absolute hidden rounded-full bg-primary md:block"
+          className="absolute hidden bg-primary md:block"
           style={{
             width: "clamp(300px, 28vw, 420px)",
             height: "clamp(300px, 28vw, 420px)",
             top: "8%",
             right: "-6%",
+            borderRadius: "44% 56% 38% 62% / 52% 60% 40% 48%",
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(30px)",
+            transform: isVisible ? "translateY(0) rotate(5deg)" : "translateY(30px) rotate(5deg)",
             transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
             transitionDelay: "2.2s",
             zIndex: 1,
