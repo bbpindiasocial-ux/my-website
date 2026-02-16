@@ -16,7 +16,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   const [purityRect, setPurityRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [deliveredRect, setDeliveredRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [isReady, setIsReady] = useState(false)
-  const [seedWidth, setSeedWidth] = useState(340)
+  const [seedWidth, setSeedWidth] = useState(220)
   const rafRef = useRef<number>(0)
 
   const measure = useCallback(() => {
@@ -48,7 +48,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     }
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 300 : w >= 768 ? 240 : 160)
+    setSeedWidth(w >= 1024 ? 220 : w >= 768 ? 180 : 140)
 
     setIsReady(true)
   }, [heroRef, purityRef, deliveredRef])
@@ -72,8 +72,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         const scrollY = window.scrollY
         const viewH = window.innerHeight
 
-        // The full animation range: from hero top to delivered section midpoint
-        const animStart = heroRect.top
+        const animStart = heroRect.top + viewH * 0.05
         const purityMid = purityRect.top + purityRect.height * 0.5 - viewH * 0.15
         const deliveredEnd = deliveredRect.top > 0
           ? deliveredRect.top + deliveredRect.height * 0.55
@@ -102,19 +101,19 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
   /* ---- Position keypoints ---- */
 
-  // Phase 1 endpoint: Hero position (seed sits here)
-  const startX = heroRect.left + heroRect.width * 0.13
-  const startY = heroRect.top + heroRect.height * 0.15
+  // Start: Match the hero's absolutely positioned rice (left: 6%, top: 50%, rotate -85deg)
+  const startX = heroRect.left + heroRect.width * 0.06 + seedWidth / 2
+  const startY = heroRect.top + heroRect.height * 0.5
   const startScale = 1
-  const startRotate = -75
+  const startRotate = -85
 
-  // Phase 1 mid-point: Purity center
+  // Mid: Purity section center
   const purityCenterX = purityRect.left + purityRect.width * 0.42
-  const purityCenterY = purityRect.top + purityRect.height * 0.2
-  const midScale = 0.85
+  const purityCenterY = purityRect.top + purityRect.height * 0.25
+  const midScale = 0.9
   const midRotate = -5
 
-  // Phase 2 endpoint: Delivered section center (where red bag will be)
+  // End: Delivered section center (where red bag will be)
   const deliveredCenterX = deliveredRect.width > 0
     ? deliveredRect.left + deliveredRect.width * 0.5
     : purityCenterX
@@ -130,17 +129,13 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
   let x: number, y: number, scale: number, rotate: number
 
-  // progress 0 -> 0.5: Hero to Purity (only position changes, seed image stays)
-  // progress 0.5 -> 1.0: Purity to Delivered (position + image crossfades)
   if (progress <= 0.5) {
-    // Phase 1: Hero -> Purity (position movement only)
     const t = easeInOutQuad(progress / 0.5)
     x = startX + (purityCenterX - startX) * t
     y = startY + (purityCenterY - startY) * t
     scale = startScale + (midScale - startScale) * t
     rotate = startRotate + (midRotate - startRotate) * t
   } else {
-    // Phase 2: Purity -> Delivered center
     const t = easeInOutQuad((progress - 0.5) / 0.5)
     x = purityCenterX + (deliveredCenterX - purityCenterX) * t
     y = purityCenterY + (deliveredCenterY - purityCenterY) * t
@@ -149,60 +144,53 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   }
 
   /* ---- Image crossfade ---- */
-  // PHASE 1 (progress 0 - 0.5): Only the seed is visible. No crossfade at all.
-  // PHASE 2 (progress 0.5 - 1.0): Seed -> Cardamom -> Rice Husk -> Red Bag
-  //
-  // Phase 2 sub-progress (p2 goes from 0 to 1 within progress 0.5 - 1.0)
   const p2 = progress <= 0.5 ? 0 : (progress - 0.5) / 0.5
 
-  // Image 1: Seed - fully visible during Phase 1, fades out at start of Phase 2
   const seedOpacity =
-    p2 <= 0 ? 1                           // Phase 1: fully visible
-    : p2 < 0.2 ? 1 - p2 / 0.2            // Phase 2: fades out 0-20%
+    p2 <= 0 ? 1
+    : p2 < 0.2 ? 1 - p2 / 0.2
     : 0
 
-  // Image 2: Cardamom - fades in at start of Phase 2, fades out mid Phase 2
   const cardamomOpacity =
     p2 < 0.05 ? 0
-    : p2 < 0.2 ? (p2 - 0.05) / 0.15      // fades in 5-20%
-    : p2 < 0.4 ? 1                         // visible 20-40%
-    : p2 < 0.55 ? 1 - (p2 - 0.4) / 0.15   // fades out 40-55%
+    : p2 < 0.2 ? (p2 - 0.05) / 0.15
+    : p2 < 0.4 ? 1
+    : p2 < 0.55 ? 1 - (p2 - 0.4) / 0.15
     : 0
 
-  // Image 3: Rice husk - appears mid Phase 2
   const riceHuskOpacity =
     p2 < 0.4 ? 0
-    : p2 < 0.55 ? (p2 - 0.4) / 0.15       // fades in 40-55%
-    : p2 < 0.7 ? 1                          // visible 55-70%
-    : p2 < 0.85 ? 1 - (p2 - 0.7) / 0.15    // fades out 70-85%
+    : p2 < 0.55 ? (p2 - 0.4) / 0.15
+    : p2 < 0.7 ? 1
+    : p2 < 0.85 ? 1 - (p2 - 0.7) / 0.15
     : 0
 
-  // Image 4: Red bag - appears at end of Phase 2
   const redBagOpacity =
     p2 < 0.7 ? 0
-    : p2 < 0.85 ? (p2 - 0.7) / 0.15        // fades in 70-85%
-    : p2 < 0.95 ? 1                          // visible 85-95%
-    : 1 - (p2 - 0.95) / 0.05                // quick fade at landing
+    : p2 < 0.85 ? (p2 - 0.7) / 0.15
+    : p2 < 0.95 ? 1
+    : 1 - (p2 - 0.95) / 0.05
 
-  // Width: scale up the container a bit for the bag at the end
   const currentWidth = p2 > 0.7
     ? seedWidth * (1 + (p2 - 0.7) * 0.8)
     : seedWidth
 
-  // Hide entirely once fully landed
-  const containerOpacity = progress >= 1 ? 0 : 1
+  // ScrollSeed is invisible at progress 0 (static hero rice is shown instead)
+  // Becomes visible as soon as scrolling starts (progress > 0)
+  // Fades out when fully landed at progress 1
+  const containerOpacity = progress <= 0.005 ? 0 : progress >= 0.98 ? 0 : 1
 
   return (
     <div
       ref={seedRef}
-      className="pointer-events-none absolute left-0 top-0 z-30"
+      className="pointer-events-none absolute left-0 top-0 z-30 hidden md:block"
       style={{
-        transform: `translate3d(${x - currentWidth / 2}px, ${y - currentWidth * 0.75}px, 0) rotate(${rotate}deg) scale(${scale})`,
+        transform: `translate3d(${x - currentWidth / 2}px, ${y - currentWidth * 0.5}px, 0) rotate(${rotate}deg) scale(${scale})`,
         willChange: "transform, opacity",
         width: currentWidth,
         opacity: containerOpacity,
         filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.15))",
-        transition: "opacity 0.2s ease-out",
+        transition: "opacity 0.3s ease-out",
       }}
     >
       {/* Image 1: Seed */}
@@ -254,7 +242,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         />
       </div>
 
-      {/* Invisible spacer to maintain container height */}
+      {/* Invisible spacer */}
       <div style={{ visibility: "hidden" }}>
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-3-removebg-preview%201-iJ06KjM6d4IPII6wZrIytjtvwbh55k.png"

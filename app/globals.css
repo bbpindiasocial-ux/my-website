@@ -54,3 +54,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes floatRice {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0);
+  }
+  50% {
+    transform: translateY(calc(-50% - 10px)) translateX(0);
+  }
+}
