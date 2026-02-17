@@ -194,7 +194,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       ref={seedRef}
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
-        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
+        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale}) scaleX(-1)`,
         transformOrigin: "top center",
         willChange: "transform",
         width: seedWidth,
