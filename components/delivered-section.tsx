@@ -29,9 +29,10 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         const sectionCenter = rect.top + rect.height * 0.5
         const viewportCenter = window.innerHeight * 0.5
         // Show when section center hits viewport center (seed disappears here)
-        // Hide when scrolling back up past the trigger point
-        const shouldShow = sectionCenter <= viewportCenter
-        setIsVisible(shouldShow)
+        // Only trigger once on scroll down, never reverse on scroll up
+        if (sectionCenter <= viewportCenter) {
+          setIsVisible(true)
+        }
       }
 
       window.addEventListener("scroll", onScroll, { passive: true })
