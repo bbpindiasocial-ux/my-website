@@ -48,7 +48,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     })
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 340 : w >= 768 ? 280 : 180)
+    setSeedWidth(w >= 1024 ? 420 : w >= 768 ? 320 : 200)
 
     setIsReady(true)
   }, [heroRef, purityRef, deliveredRef])
@@ -113,9 +113,9 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: top-left of hero
-  const startX = heroRect.left + heroRect.width * 0.04
-  const startY = heroRect.top + 20
+  // Phase 1 start: left side of hero, overlapping text
+  const startX = heroRect.left + heroRect.width * 0.05
+  const startY = heroRect.top + heroRect.height * 0.08
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
@@ -133,7 +133,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     x = startX + (purityCenterX - startX) * p1
     y = startY + (purityCenterY - startY) * p1
     scale = 1 + (0.85 - 1) * p1
-    rotate = -25 + (25) * p1 // -25 -> 0
+    rotate = -30 + (30) * p1 // -30 -> 0
   } else {
     // Phase 2: purity center -> delivered center
     const p2 = ease(Math.max(0, Math.min(1, progress - 1)))

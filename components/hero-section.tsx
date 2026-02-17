@@ -18,7 +18,7 @@ export const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) 
       className="relative -mt-4 min-h-[60vh] overflow-visible px-6 pb-20 lg:min-h-[75vh] lg:px-12"
     >
       {/* Hero Text */}
-      <div className="relative z-10 flex items-start justify-center pt-8 md:justify-start md:pl-[15%] lg:pl-[20%] lg:pt-12">
+      <div className="relative z-10 flex items-start justify-center pt-8 md:justify-start md:pl-[20%] lg:pl-[22%] lg:pt-12">
         <div className="overflow-hidden">
           <h1
             className={`text-[clamp(3rem,12vw,11rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary transition-all duration-[1200ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
