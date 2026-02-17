@@ -127,7 +127,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   // --- Positions ---
   // Phase 1 start: grain top leans left, bottom tip touches "W" in "WITH CARE"
   // X: shifted more left so top portion leans further left
-  const startX = headingRect.left - seedWidth * 0.55 - 5
+  const startX = headingRect.left - seedWidth * 0.55 - 25
   // Y: positioned so bottom of grain reaches the second line "WITH"
   // headingRect.height * 0.5 = where second line starts, subtract grain height offset
   const startY = headingRect.top - headingRect.height * 0.15
