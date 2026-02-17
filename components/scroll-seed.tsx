@@ -149,7 +149,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     x = startX + (purityCenterX - startX) * p1
     y = startY + (purityCenterY - startY) * p1
     scale = 1 + (0.85 - 1) * p1
-    rotate = -30 + (30) * p1 // -30 -> 0
+    rotate = -25 + (25) * p1 // -25 -> 0
   } else {
     // Phase 2: purity center -> delivered center
     const p2 = ease(Math.max(0, Math.min(1, progress - 1)))
@@ -195,6 +195,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
         transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
+        transformOrigin: "top center",
         willChange: "transform",
         width: seedWidth,
       }}
