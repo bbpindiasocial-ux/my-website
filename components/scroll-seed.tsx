@@ -72,8 +72,10 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   }, [measure])
 
   useEffect(() => {
-    const timer = setTimeout(measure, 500)
-    return () => clearTimeout(timer)
+    const t1 = setTimeout(measure, 300)
+    const t2 = setTimeout(measure, 800)
+    const t3 = setTimeout(measure, 1500)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [measure])
 
   useEffect(() => {
@@ -125,11 +127,16 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
+  // Use headingRect if measured, otherwise fall back to heroRect-based position
+  const hasHeading = headingRect.height > 0
+  const refLeft = hasHeading ? headingRect.left : heroRect.left + heroRect.width * 0.18
+  const refTop = hasHeading ? headingRect.top : heroRect.top + heroRect.height * 0.15
+  const refHeight = hasHeading ? headingRect.height : heroRect.height * 0.4
+
   // Phase 1 start: grain sits to the left of heading, right edge overlapping text
-  // With -25deg rotation from center, the grain leans top-left to bottom-right
-  const startX = headingRect.left - seedWidth * 0.82
+  const startX = refLeft - seedWidth * 0.82
   // Vertically centered on the heading text
-  const startY = headingRect.top + headingRect.height * 0.5 - seedWidth * 0.68
+  const startY = refTop + refHeight * 0.5 - seedWidth * 0.68
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
@@ -197,7 +204,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       ref={seedRef}
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
-        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale}) scaleX(-1)`,
+        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
         willChange: "transform",
         width: seedWidth,
         visibility: seedVisible ? "visible" : "hidden",
@@ -215,7 +222,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
           alt="Premium rice grain"
           width={400}
           height={600}
-          className="h-auto w-full object-contain drop-shadow-2xl"
+          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
           priority
           unoptimized
         />
@@ -234,7 +241,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
           alt="Split cardamom pod"
           width={400}
           height={600}
-          className="h-auto w-full object-contain drop-shadow-2xl"
+          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
           unoptimized
         />
       </div>
@@ -252,7 +259,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
           alt="Rice grain"
           width={400}
           height={600}
-          className="h-auto w-full object-contain drop-shadow-2xl"
+          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
           unoptimized
         />
       </div>
