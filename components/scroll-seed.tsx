@@ -130,7 +130,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   const startX = headingRect.left - seedWidth * 0.55 - 25
   // Y: positioned so bottom of grain reaches the second line "WITH"
   // headingRect.height * 0.5 = where second line starts, subtract grain height offset
-  const startY = headingRect.top - headingRect.height * 0.15
+  const startY = headingRect.top - headingRect.height * 0.15 - 5
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
