@@ -48,7 +48,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     })
 
     const w = window.innerWidth
-    setSeedWidth(w >= 1024 ? 420 : w >= 768 ? 320 : 200)
+    setSeedWidth(w >= 1024 ? 500 : w >= 768 ? 380 : 220)
 
     setIsReady(true)
   }, [heroRef, purityRef, deliveredRef])
@@ -113,9 +113,9 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: left side of hero, overlapping text
-  const startX = heroRect.left + heroRect.width * 0.05
-  const startY = heroRect.top + heroRect.height * 0.08
+  // Phase 1 start: left side of hero, overlapping text (matching reference frame)
+  const startX = heroRect.left + heroRect.width * 0.08 - seedWidth * 0.3
+  const startY = heroRect.top - heroRect.height * 0.05
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
