@@ -121,6 +121,8 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     }
   }, [heroRef, purityRef, deliveredRef, heroRect, purityRect, deliveredRect])
 
+  console.log("[v0] ScrollSeed:", { isReady, progress, seedWidth, hasHeading: headingRect.height > 0, headingLeft: headingRect.left, headingTop: headingRect.top, headingH: headingRect.height, heroTop: heroRect.top, heroH: heroRect.height })
+
   if (!isReady) return null
 
   const ease = (t: number) =>
@@ -218,7 +220,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="/images/grain-03.png"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_03-removebg-preview-L9B2H3PlroOkmX9cBbWww9AdJyO9N0.png"
           alt="Premium rice grain"
           width={400}
           height={600}
@@ -237,7 +239,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="/images/grain-02.png"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_02-removebg-preview-jNWI1MrnIDEu0A1VJsAcg2fR5Mgq5Z.png"
           alt="Split cardamom pod"
           width={400}
           height={600}
@@ -255,7 +257,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="/images/grain-01.png"
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_-removebg-preview-ug8C36ee3F5tbQdlbEzIf6HKaLu6Js.png"
           alt="Rice grain"
           width={400}
           height={600}
