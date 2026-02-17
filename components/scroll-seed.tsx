@@ -113,9 +113,15 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain on left, bottom tip slightly touching "W" in "WITH CARE"
-  const startX = heroRect.left + heroRect.width * 0.02
-  const startY = heroRect.top - heroRect.height * 0.02
+  // Phase 1 start: grain on left, bottom tip touching baseline of "W" in "WITH CARE"
+  // Grain aspect ratio ~3:4, so height = seedWidth * 1.35
+  // Text starts at pt-12 (48px), first line height ~0.85 * fontSize, "WITH" baseline below that
+  const grainHeight = seedWidth * 1.35
+  const textTopOffset = heroRect.height * 0.06 // pt padding
+  const firstLineHeight = heroRect.height * 0.35 // "Cultivated" line
+  const secondLineBaseline = textTopOffset + firstLineHeight + heroRect.height * 0.12
+  const startX = heroRect.left + heroRect.width * 0.01
+  const startY = heroRect.top + secondLineBaseline - grainHeight
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
