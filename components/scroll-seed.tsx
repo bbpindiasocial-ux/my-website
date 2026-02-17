@@ -72,10 +72,8 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   }, [measure])
 
   useEffect(() => {
-    const t1 = setTimeout(measure, 300)
-    const t2 = setTimeout(measure, 800)
-    const t3 = setTimeout(measure, 1500)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+    const timer = setTimeout(measure, 500)
+    return () => clearTimeout(timer)
   }, [measure])
 
   useEffect(() => {
@@ -121,8 +119,6 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     }
   }, [heroRef, purityRef, deliveredRef, heroRect, purityRect, deliveredRect])
 
-  console.log("[v0] ScrollSeed:", { isReady, progress, seedWidth, hasHeading: headingRect.height > 0, headingLeft: headingRect.left, headingTop: headingRect.top, headingH: headingRect.height, heroTop: heroRect.top, heroH: heroRect.height })
-
   if (!isReady) return null
 
   const ease = (t: number) =>
@@ -167,13 +163,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   }
 
   // --- Image layer opacities ---
-  // Layer 1: Seed (frame-3) - visible at start, fades out as cardamom fades in
-  // Visible 0-0.3, fades out 0.3-0.6
+  // Layer 1: Seed - visible at start, fades out as cardamom fades in
   const seedOpacity =
     progress < 0.3 ? 1 : progress < 0.6 ? 1 - (progress - 0.3) / 0.3 : 0
 
-  // Layer 2: Cardamom (frame-40) - the purity section center image
-  // Fades in 0.3-0.6, stays visible through purity, fades out 0.9-1.15
+  // Layer 2: Cardamom - fades in 0.3-0.6, stays visible, fades out 0.9-1.15
   const cardamomOpacity =
     progress < 0.3
       ? 0
@@ -185,28 +179,28 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
             ? 1 - (progress - 0.9) / 0.25
             : 0
 
-  // Layer 3: Rice grain - fades out well before delivered section
-  // Fades in 0.9-1.1, stays briefly, fades out 1.15-1.3
+  // Layer 3: Rice grain - fades out before bags appear
+  // Fades in 0.9-1.15, stays visible, fades out 1.4-1.65
   const riceGrainOpacity =
     progress < 0.9
       ? 0
-      : progress < 1.1
-        ? (progress - 0.9) / 0.2
-        : progress < 1.15
+      : progress < 1.15
+        ? (progress - 0.9) / 0.25
+        : progress < 1.4
           ? 1
-          : progress < 1.3
-            ? 1 - (progress - 1.15) / 0.15
+          : progress < 1.65
+            ? 1 - (progress - 1.4) / 0.25
             : 0
 
   // Entire seed container hidden once Layer 3 fades out
-  const seedVisible = progress < 1.3
+  const seedVisible = progress < 1.65
 
   return (
     <div
       ref={seedRef}
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
-        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
+        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale}) scaleX(-1)`,
         willChange: "transform",
         width: seedWidth,
         visibility: seedVisible ? "visible" : "hidden",
@@ -220,11 +214,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_03-removebg-preview-L9B2H3PlroOkmX9cBbWww9AdJyO9N0.png"
+          src="/images/grain-03.png"
           alt="Premium rice grain"
           width={400}
           height={600}
-          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
+          className="h-auto w-full object-contain drop-shadow-2xl"
           priority
           unoptimized
         />
@@ -239,11 +233,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_02-removebg-preview-jNWI1MrnIDEu0A1VJsAcg2fR5Mgq5Z.png"
+          src="/images/grain-02.png"
           alt="Split cardamom pod"
           width={400}
           height={600}
-          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
+          className="h-auto w-full object-contain drop-shadow-2xl"
           unoptimized
         />
       </div>
@@ -257,16 +251,14 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grain_png_-removebg-preview-ug8C36ee3F5tbQdlbEzIf6HKaLu6Js.png"
+          src="/images/grain-01.png"
           alt="Rice grain"
           width={400}
           height={600}
-          className="h-auto w-full -scale-x-100 object-contain drop-shadow-2xl"
+          className="h-auto w-full object-contain drop-shadow-2xl"
           unoptimized
         />
       </div>
-
-
     </div>
   )
 }
