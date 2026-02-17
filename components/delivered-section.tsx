@@ -25,20 +25,19 @@ export const DeliveredSection = forwardRef<HTMLElement>(
       if (!el) return
 
       function onScroll() {
-        if (isVisible) return
         const rect = el!.getBoundingClientRect()
         const sectionCenter = rect.top + rect.height * 0.5
         const viewportCenter = window.innerHeight * 0.5
-        // Trigger when section center is near viewport center (seed has arrived)
-        if (sectionCenter <= viewportCenter + rect.height * 0.15) {
-          setIsVisible(true)
-        }
+        // Show when section center is near viewport center (seed has arrived)
+        // Hide when scrolling back up past the trigger point
+        const shouldShow = sectionCenter <= viewportCenter + rect.height * 0.15
+        setIsVisible(shouldShow)
       }
 
       window.addEventListener("scroll", onScroll, { passive: true })
       onScroll()
       return () => window.removeEventListener("scroll", onScroll)
-    }, [isVisible])
+    }, [])
 
     return (
       <section
