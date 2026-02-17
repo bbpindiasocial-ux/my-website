@@ -89,7 +89,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
 
         // Phase 2: purity center -> delivered center (progress 1-2)
         const phase2Start = phase1End
-        const phase2End = deliveredRect.top + deliveredRect.height * 0.4
+        const phase2End = deliveredRect.top + deliveredRect.height * 0.5
 
         if (phase1End <= phase1Start || phase2End <= phase2Start) {
           setProgress(0)
@@ -176,16 +176,18 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
             ? 1 - (progress - 0.9) / 0.25
             : 0
 
-  // Layer 3: Rice grain - transition image, fully gone before delivered section
-  // Fades in 0.9-1.15, fades out 1.15-1.4
+  // Layer 3: Rice grain - transition image, fades out at center of delivered section
+  // Fades in 0.9-1.15, stays visible, fades out 1.75-2.0
   const riceGrainOpacity =
     progress < 0.9
       ? 0
       : progress < 1.15
         ? (progress - 0.9) / 0.25
-        : progress < 1.4
-          ? 1 - (progress - 1.15) / 0.25
-          : 0
+        : progress < 1.75
+          ? 1
+          : progress < 2.0
+            ? 1 - (progress - 1.75) / 0.25
+            : 0
 
   return (
     <div

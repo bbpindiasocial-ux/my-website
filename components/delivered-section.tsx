@@ -20,24 +20,25 @@ export const DeliveredSection = forwardRef<HTMLElement>(
       [forwardedRef]
     )
 
-    const handleIntersection = useCallback(
-      (entries: IntersectionObserverEntry[]) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      []
-    )
-
     useEffect(() => {
       const el = localRef.current
       if (!el) return
-      const observer = new IntersectionObserver(handleIntersection, {
-        threshold: 0.75,
-      })
-      observer.observe(el)
-      return () => observer.disconnect()
-    }, [handleIntersection])
+
+      function onScroll() {
+        if (isVisible) return
+        const rect = el!.getBoundingClientRect()
+        const sectionCenter = rect.top + rect.height * 0.5
+        const viewportCenter = window.innerHeight * 0.5
+        // Trigger when section center is near viewport center (seed has arrived)
+        if (sectionCenter <= viewportCenter + rect.height * 0.15) {
+          setIsVisible(true)
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true })
+      onScroll()
+      return () => window.removeEventListener("scroll", onScroll)
+    }, [isVisible])
 
     return (
       <section
