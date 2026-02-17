@@ -113,9 +113,9 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain on left, bottom tip touching "W" in "WITH CARE" (2nd line)
+  // Phase 1 start: grain on left, bottom tip slightly touching "W" in "WITH CARE"
   const startX = heroRect.left + heroRect.width * 0.02
-  const startY = heroRect.top + heroRect.height * 0.05
+  const startY = heroRect.top - heroRect.height * 0.02
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
