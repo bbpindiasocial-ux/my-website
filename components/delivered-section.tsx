@@ -55,7 +55,7 @@ export const DeliveredSection = forwardRef<HTMLElement>(
                 ? "inset(0 0% 0 0)"
                 : "inset(0 100% 0 0)",
               transition:
-                "clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1)",
+                "clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1)",
             }}
           >
             <span className="block">Delivered</span>
