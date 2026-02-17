@@ -6,6 +6,7 @@ import Image from "next/image"
 export const DeliveredSection = forwardRef<HTMLElement>(
   function DeliveredSection(_, forwardedRef) {
     const localRef = useRef<HTMLElement>(null)
+    const [headingVisible, setHeadingVisible] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
 
     const setRef = useCallback(
@@ -28,8 +29,11 @@ export const DeliveredSection = forwardRef<HTMLElement>(
         const rect = el!.getBoundingClientRect()
         const sectionCenter = rect.top + rect.height * 0.5
         const viewportCenter = window.innerHeight * 0.5
-        // Show when section center hits viewport center (seed disappears here)
-        // Only trigger once on scroll down, never reverse on scroll up
+        // Heading appears early - when section top enters viewport
+        if (rect.top <= viewportCenter + rect.height * 0.1) {
+          setHeadingVisible(true)
+        }
+        // Bags appear later - when section center hits viewport center
         if (sectionCenter <= viewportCenter) {
           setIsVisible(true)
         }
