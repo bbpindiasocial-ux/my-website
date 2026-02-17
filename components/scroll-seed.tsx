@@ -224,8 +224,8 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frame-40-removebg-preview%201-4we2BvDPWE5vYKekYkG0M1YrAMuwGH.png"
-          alt="Cardamom pod"
+          src="/images/grain-02.png"
+          alt="Split cardamom pod"
           width={400}
           height={600}
           className="h-auto w-full object-contain drop-shadow-2xl"
