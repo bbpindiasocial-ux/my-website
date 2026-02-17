@@ -176,21 +176,21 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
             ? 1 - (progress - 0.9) / 0.25
             : 0
 
-  // Layer 3: Rice grain - transition image, fades out when red bag appears
-  // Fades in 0.9-1.15, stays visible, fades out 1.85-2.0
+  // Layer 3: Rice grain - fades out before bags appear
+  // Fades in 0.9-1.15, stays visible, fades out 1.4-1.65
   const riceGrainOpacity =
     progress < 0.9
       ? 0
       : progress < 1.15
         ? (progress - 0.9) / 0.25
-        : progress < 1.85
+        : progress < 1.4
           ? 1
-          : progress < 2.0
-            ? 1 - (progress - 1.85) / 0.15
+          : progress < 1.65
+            ? 1 - (progress - 1.4) / 0.25
             : 0
 
-  // Entire seed container hidden once progress hits 2.0
-  const seedVisible = progress < 2.0
+  // Entire seed container hidden once Layer 3 fades out
+  const seedVisible = progress < 1.65
 
   return (
     <div
