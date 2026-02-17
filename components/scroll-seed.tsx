@@ -191,7 +191,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="/images/grain-03.jpg"
+          src="/images/grain-03.png"
           alt="Premium rice grain"
           width={400}
           height={600}
