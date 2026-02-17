@@ -18,7 +18,7 @@ export const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) 
       className="relative -mt-4 min-h-[60vh] overflow-visible px-6 pb-20 lg:min-h-[75vh] lg:px-12"
     >
       {/* Hero Text */}
-      <div className="relative z-10 flex items-start justify-center pt-8 md:justify-start md:pl-[22%] lg:pl-[24%] lg:pt-12">
+      <div className="relative z-10 flex items-start justify-center pt-8 md:justify-start md:pl-[16%] lg:pl-[18%] lg:pt-12">
         <div className="overflow-hidden">
           <h1
             className={`text-[clamp(3rem,12vw,11rem)] font-black uppercase leading-[0.85] tracking-tighter text-primary transition-all duration-[1200ms] ease-[cubic-bezier(0.77,0,0.175,1)] ${
@@ -42,7 +42,7 @@ export const HeroSection = forwardRef<HTMLElement>(function HeroSection(_, ref) 
 
       {/* Decorative blurred ghost text behind the seed for depth */}
       <div
-        className="pointer-events-none absolute left-[8%] top-8 z-[15] hidden select-none md:block lg:top-12"
+        className="pointer-events-none absolute left-[2%] top-8 z-[15] hidden select-none md:block lg:top-12"
         aria-hidden="true"
       >
         <div

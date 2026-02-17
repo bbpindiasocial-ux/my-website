@@ -113,10 +113,9 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain on left, bottom tip touching "W" in "WITH CARE"
-  // The text starts at ~24% from left, grain center sits at ~15% so bottom overlaps the "W"
-  const startX = heroRect.left + heroRect.width * 0.04
-  const startY = heroRect.top - heroRect.height * 0.08
+  // Phase 1 start: grain on left, bottom tip touching "W" in "WITH CARE" (2nd line)
+  const startX = heroRect.left + heroRect.width * 0.02
+  const startY = heroRect.top + heroRect.height * 0.05
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
