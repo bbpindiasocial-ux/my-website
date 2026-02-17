@@ -125,13 +125,11 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain hugs the left side of heading text
-  // Center of grain container should be near headingRect.left
-  // so after rotation the right edge overlaps the letters
-  const startX = headingRect.left - seedWidth * 0.75
-  // Y: vertically, grain center aligns with heading center
-  // so bottom tip reaches "WITH" and top extends above "CULTIVATED"
-  const startY = headingRect.top + headingRect.height * 0.5 - seedWidth * 0.7
+  // Phase 1 start: grain sits to the left of heading, right edge overlapping text
+  // With -25deg rotation from center, the grain leans top-left to bottom-right
+  const startX = headingRect.left - seedWidth * 0.82
+  // Vertically centered on the heading text
+  const startY = headingRect.top + headingRect.height * 0.5 - seedWidth * 0.68
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
@@ -149,7 +147,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     x = startX + (purityCenterX - startX) * p1
     y = startY + (purityCenterY - startY) * p1
     scale = 1 + (0.85 - 1) * p1
-    rotate = -18 + (18) * p1 // -18 -> 0
+    rotate = -25 + (25) * p1 // -25 -> 0
   } else {
     // Phase 2: purity center -> delivered center
     const p2 = ease(Math.max(0, Math.min(1, progress - 1)))
@@ -194,8 +192,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       ref={seedRef}
       className="pointer-events-none absolute left-0 top-0 z-30"
       style={{
-        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale}) scaleX(-1)`,
-        transformOrigin: "top center",
+        transform: `translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg) scale(${scale})`,
         willChange: "transform",
         width: seedWidth,
       }}
