@@ -125,12 +125,13 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain right edge overlaps left side of text
-  // Bottom tip touches the "W" in "WITH CARE"
-  // X: grain right edge overlaps the first letters of the heading
-  const startX = headingRect.left - seedWidth * 0.28
-  // Y: grain spans from above "CULTIVATED" down to "WITH"
-  const startY = headingRect.top - headingRect.height * 0.12
+  // Phase 1 start: grain hugs the left side of heading text
+  // Center of grain container should be near headingRect.left
+  // so after rotation the right edge overlaps the letters
+  const startX = headingRect.left - seedWidth * 0.75
+  // Y: vertically, grain center aligns with heading center
+  // so bottom tip reaches "WITH" and top extends above "CULTIVATED"
+  const startY = headingRect.top + headingRect.height * 0.5 - seedWidth * 0.7
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
