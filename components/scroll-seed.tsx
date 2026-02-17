@@ -147,7 +147,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     x = startX + (purityCenterX - startX) * p1
     y = startY + (purityCenterY - startY) * p1
     scale = 1 + (0.85 - 1) * p1
-    rotate = -25 + (25) * p1 // -25 -> 0
+    rotate = -15 + (15) * p1 // -15 -> 0
   } else {
     // Phase 2: purity center -> delivered center
     const p2 = ease(Math.max(0, Math.min(1, progress - 1)))
