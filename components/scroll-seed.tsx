@@ -242,7 +242,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
         }}
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot_2026-02-14_113737-removebg-preview-evWEoit5u4I2ZAzEJBZoUEgf1wUenq.png"
+          src="/images/grain-01.png"
           alt="Rice grain"
           width={400}
           height={600}
