@@ -15,6 +15,7 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
   // progress 1-2: purity center -> delivered center
   const [progress, setProgress] = useState(0)
   const [heroRect, setHeroRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
+  const [headingRect, setHeadingRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [purityRect, setPurityRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [deliveredRect, setDeliveredRect] = useState({ top: 0, left: 0, height: 0, width: 0 })
   const [isReady, setIsReady] = useState(false)
@@ -46,6 +47,17 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
       height: dRect.height,
       width: dRect.width,
     })
+
+    const headingEl = document.getElementById("hero-heading-wrapper")
+    if (headingEl) {
+      const hgRect = headingEl.getBoundingClientRect()
+      setHeadingRect({
+        top: hgRect.top + scrollY,
+        left: hgRect.left,
+        height: hgRect.height,
+        width: hgRect.width,
+      })
+    }
 
     const w = window.innerWidth
     setSeedWidth(w >= 1024 ? 360 : w >= 768 ? 280 : 180)
@@ -113,15 +125,15 @@ export function ScrollSeed({ heroRef, purityRef, deliveredRef }: ScrollSeedProps
     t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 
   // --- Positions ---
-  // Phase 1 start: grain on left, bottom tip touching baseline of "W" in "WITH CARE"
-  // Grain aspect ratio ~3:4, so height = seedWidth * 1.35
-  // Text starts at pt-12 (48px), first line height ~0.85 * fontSize, "WITH" baseline below that
+  // Phase 1 start: positioned relative to the heading wrapper
+  // Heading has 2 lines with leading-[0.85]. "WITH CARE" starts at ~50% of heading height.
+  // Seed bottom tip touches the baseline of the "W" in "WITH CARE"
+  const secondLineTop = headingRect.top + headingRect.height * 0.5
   const grainHeight = seedWidth * 1.35
-  const textTopOffset = heroRect.height * 0.06 // pt padding
-  const firstLineHeight = heroRect.height * 0.35 // "Cultivated" line
-  const secondLineBaseline = textTopOffset + firstLineHeight + heroRect.height * 0.12
-  const startX = heroRect.left + heroRect.width * 0.01
-  const startY = heroRect.top + secondLineBaseline - grainHeight
+  // X: slightly overlapping left edge of heading text
+  const startX = headingRect.left - seedWidth * 0.45
+  // Y: grain bottom touches second line top
+  const startY = secondLineTop - grainHeight + seedWidth * 0.15
 
   // Phase 1 end / Phase 2 start: center of purity section
   const purityCenterX = purityRect.left + purityRect.width * 0.42
